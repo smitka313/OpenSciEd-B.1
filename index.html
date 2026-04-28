@@ -577,18 +577,18 @@
           <div class="section live-keep"><h4>Class Timer</h4>
             <div class="timer-row">
               <div id="timerDisplay" class="timer-display">00:00</div>
-              <button class="timer-btn" onclick="startTimer(300)">5 min</button>
-              <button class="timer-btn" onclick="startTimer(600)">10 min</button>
-              <button class="timer-btn" onclick="startTimer(900)">15 min</button>
-              <button class="timer-btn" onclick="startTimer(1200)">20 min</button>
-              <button class="timer-btn secondary" onclick="stopTimer()">Stop</button>
-              <button class="timer-btn secondary" onclick="resetTimer()">Reset</button>
+              <button class="timer-btn" data-timer="300">5 min</button>
+              <button class="timer-btn" data-timer="600">10 min</button>
+              <button class="timer-btn" data-timer="900">15 min</button>
+              <button class="timer-btn" data-timer="1200">20 min</button>
+              <button class="timer-btn secondary" data-timer-action="stop">Stop</button>
+              <button class="timer-btn secondary" data-timer-action="reset">Reset</button>
             </div>
           </div>
 
           <div class="section live-keep"><h4>Random Talk Move</h4>
             <div id="talkMove" class="talk-move">Click the button for a discussion prompt.</div>
-            <div style="margin-top:10px;"><button class="timer-btn" onclick="randomTalkMove()">New Talk Move</button></div>
+            <div style="margin-top:10px;"><button class="timer-btn" data-talk-move="new">New Talk Move</button></div>
           </div>
 
           <div class="section sticky-resource"><h4>Official OpenSciEd Unit Resources</h4>
@@ -631,6 +631,31 @@
     }
 
     renderLessons();
+  
+    document.addEventListener('click', function(event) {
+      const timerButton = event.target.closest('[data-timer]');
+      if (timerButton) {
+        startTimer(Number(timerButton.dataset.timer));
+        return;
+      }
+
+      const timerAction = event.target.closest('[data-timer-action]');
+      if (timerAction) {
+        if (timerAction.dataset.timerAction === 'stop') stopTimer();
+        if (timerAction.dataset.timerAction === 'reset') resetTimer();
+        return;
+      }
+
+      const talkMoveButton = event.target.closest('[data-talk-move]');
+      if (talkMoveButton) {
+        randomTalkMove();
+      }
+    });
+
+    window.startTimer = startTimer;
+    window.stopTimer = stopTimer;
+    window.resetTimer = resetTimer;
+    window.randomTalkMove = randomTalkMove;
   </script>
 </body>
 </html>
