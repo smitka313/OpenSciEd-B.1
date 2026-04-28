@@ -74,6 +74,7 @@
     .detail-head { padding: 22px; background: #eef4f5; border-bottom: 1px solid var(--line); }
     .detail-head h2 { margin: 6px 0 8px; font-size: 28px; }
     .detail-body { padding: 22px; display: grid; gap: 18px; }
+    .sticky-resource { position: sticky; top: 0; z-index: 5; border-radius: 0; border-left: 0; border-right: 0; box-shadow: 0 8px 18px rgba(23,36,42,.10); }
     .section { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: #fff; }
     .section h4 { margin: 0 0 10px; color: var(--teal-dark); font-size: 15px; text-transform: uppercase; letter-spacing: .08em; }
     ul { margin: 8px 0 0; padding-left: 20px; }
@@ -363,6 +364,14 @@
           </div>
         </div>
         <div class="detail-body">
+          <div class="section sticky-resource"><h4>Official OpenSciEd Unit Resources</h4>
+            <div class="resource-buttons">
+              <a class="resource-btn" href="https://drive.google.com/drive/folders/1n2MzmFawPOz6bm8VCeLlWhx9jSd4eJWz" target="_blank">Open Unit Google Drive</a>
+            </div>
+            <p style="margin:8px 0 0; font-size:13px; color:var(--muted);">
+              Official folder for Unit B.1 slides, handouts, and teacher materials.
+            </p>
+          </div>
           <div class="notice"><b>Quick planning cue:</b> Download/verify the official teacher guide, slides, student handouts, references, and keys for this lesson through OpenSciEd before teaching.</div>
           <div class="section"><h4>Phenomenon / Design Problem</h4><p>${l.phenomenon}</p></div>
           <div class="section"><h4>What students do</h4><p>${l.do}</p></div>
@@ -374,11 +383,6 @@
           <div class="twocol">
             <div class="section"><h4>Equity / accessibility reminders</h4>${listItems(l.equity)}</div>
             <div class="section"><h4>OpenSciEd / external links</h4>${linkItems(l.links.concat(unitLinks.slice(0,1)))}</div>
-          <div class="section"><h4>Google Drive Lesson Resources</h4>
-            ${resourceButtons(l)}
-            <div class="links" style="margin-top:10px;">
-              <a href="${DRIVE_FOLDER}" target="_blank">Open Full Unit Drive Folder</a>
-            </div>
             <p style="margin:8px 0 0; font-size:13px; color:var(--muted);">
               Buttons use Google Drive search terms for this lesson. Replace these URLs with exact file links once your Drive folder structure is finalized.
             </p>
