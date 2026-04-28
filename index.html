@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenSciEd Biology B.1 Teacher Dashboard</title>
+  <style>
+    :root {
+      --bg: #f5f7f8;
+      --panel: #ffffff;
+      --ink: #17242a;
+      --muted: #60717a;
+      --teal: #7399a0;
+      --teal-dark: #426c73;
+      --green: #8bbf45;
+      --orange: #f28c28;
+      --blue: #3366aa;
+      --line: #d9e2e5;
+      --shadow: 0 10px 28px rgba(23,36,42,.10);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+    }
+    header {
+      background: linear-gradient(135deg, #5f8991, #86a9ae 55%, #e9f0f1);
+      color: white;
+      padding: 34px 24px 26px;
+    }
+    .wrap { max-width: 1240px; margin: 0 auto; }
+    .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 700; opacity: .92; }
+    h1 { margin: 8px 0 8px; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; }
+    .subtitle { max-width: 850px; font-size: 18px; opacity: .96; }
+    .top-actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,.16);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn.dark { background: var(--teal-dark); border-color: var(--teal-dark); }
+    main { padding: 24px; }
+    .grid { display: grid; gap: 18px; }
+    .stats { grid-template-columns: repeat(4, minmax(0,1fr)); margin-top: -44px; }
+    .stat, .card, .toolbar, .detail { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .stat { padding: 18px; }
+    .stat b { display:block; font-size: 32px; color: var(--teal-dark); }
+    .stat span { color: var(--muted); font-size: 14px; }
+    .toolbar { margin: 22px 0; padding: 16px; display: grid; gap: 12px; grid-template-columns: 1.4fr repeat(3, .7fr); align-items: center; }
+    input, select {
+      width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 12px 13px; font: inherit; background: white; color: var(--ink);
+    }
+    .layout { display: grid; grid-template-columns: 380px 1fr; gap: 20px; align-items: start; }
+    .lesson-list { display: grid; gap: 12px; }
+    .card { padding: 16px; cursor: pointer; transition: .18s ease; }
+    .card:hover, .card.active { transform: translateY(-2px); border-color: var(--teal); box-shadow: 0 14px 32px rgba(23,36,42,.14); }
+    .lesson-num { color: var(--teal-dark); font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+    .card h3 { margin: 6px 0 8px; font-size: 18px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 7px; margin: 10px 0 0; }
+    .pill { display: inline-flex; align-items: center; gap: 4px; border-radius: 999px; padding: 5px 9px; font-size: 12px; font-weight: 700; background: #eef4f5; color: var(--teal-dark); }
+    .pill.green { background:#edf7e5; color:#4d7c24; }
+    .pill.orange { background:#fff2e3; color:#93500e; }
+    .detail { padding: 0; overflow: hidden; position: sticky; top: 16px; }
+    .detail-head { padding: 22px; background: #eef4f5; border-bottom: 1px solid var(--line); }
+    .detail-head h2 { margin: 6px 0 8px; font-size: 28px; }
+    .detail-body { padding: 22px; display: grid; gap: 18px; }
+    .section { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: #fff; }
+    .section h4 { margin: 0 0 10px; color: var(--teal-dark); font-size: 15px; text-transform: uppercase; letter-spacing: .08em; }
+    ul { margin: 8px 0 0; padding-left: 20px; }
+    li { margin: 5px 0; }
+    .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .links a { display:block; color: var(--blue); font-weight: 700; text-decoration: none; margin: 8px 0; }
+    .resource-buttons { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-top: 8px; }
+    .resource-btn { display:flex; align-items:center; justify-content:center; text-align:center; min-height:44px; border-radius: 12px; background: var(--teal-dark); color: white; text-decoration:none; font-weight:800; padding: 10px; }
+    .resource-btn:nth-child(2) { background: var(--green); }
+    .resource-btn:nth-child(3) { background: var(--blue); }
+    .resource-btn:nth-child(4) { background: var(--orange); }
+    .checklist { display:grid; gap:8px; }
+    .checklist label { display:flex; gap:9px; align-items:flex-start; padding:8px 10px; border:1px solid var(--line); border-radius:10px; background:#f8fbfb; }
+    .checklist input { width:auto; margin-top:3px; }
+    .links a:hover { text-decoration: underline; }
+    .timeline { display:grid; gap: 10px; }
+    .step { padding: 10px 12px; border-left: 4px solid var(--teal); background: #f8fbfb; border-radius: 10px; }
+    .step b { color: var(--teal-dark); }
+    .notice { background:#fff8eb; border:1px solid #f4d6a8; color:#5d4218; padding: 12px 14px; border-radius: 14px; }
+    .footer-note { color: var(--muted); font-size: 13px; margin: 28px 0 8px; }
+    @media (max-width: 980px) { .stats, .toolbar, .layout, .twocol { grid-template-columns: 1fr; } .detail { position: static; } }
+    @media print { header, .toolbar, .lesson-list { display:none; } main { padding:0; } .layout, .twocol { display:block; } .detail { box-shadow:none; border:none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">OpenSciEd High School Biology • Unit B.1</div>
+      <h1>Ecosystem Interactions & Dynamics: Serengeti</h1>
+      
+      <div class="top-actions">
+        <a class="btn" href="https://www.openscied.org/" target="_blank" rel="noopener">OpenSciEd.org</a>
+        <button class="btn" onclick="window.print()">Print selected lesson</button>
+        <button class="btn" onclick="resetFilters()">Reset filters</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="grid stats" aria-label="Unit stats">
+      <div class="stat"><b>11</b><span>Lessons</span></div>
+      <div class="stat"><b>27</b><span>Total class days</span></div>
+      <div class="stat"><b>3</b><span>Lesson sets</span></div>
+      <div class="stat"><b>6+</b><span>NGSS PEs supported</span></div>
+    </section>
+
+    <section class="toolbar" aria-label="Filters">
+      <input id="search" placeholder="Search lessons, standards, materials, concepts…" oninput="renderLessons()" />
+      <select id="setFilter" onchange="renderLessons()">
+        <option value="all">All lesson sets</option>
+        <option value="Lesson Set 1">Lesson Set 1: Populations</option>
+        <option value="Lesson Set 2">Lesson Set 2: Interactions</option>
+        <option value="Lesson Set 3">Lesson Set 3: Conservation</option>
+      </select>
+      <select id="typeFilter" onchange="renderLessons()">
+        <option value="all">All lesson types</option>
+        <option value="Anchoring Phenomenon">Anchoring Phenomenon</option>
+        <option value="Investigation">Investigation</option>
+        <option value="Putting Pieces Together">Putting Pieces Together</option>
+      </select>
+      <select id="standardFilter" onchange="renderLessons()">
+        <option value="all">All NGSS</option>
+        <option value="HS-LS2-1">HS-LS2-1</option>
+        <option value="HS-LS2-2">HS-LS2-2</option>
+        <option value="HS-LS2-6">HS-LS2-6</option>
+        <option value="HS-LS2-7">HS-LS2-7</option>
+        <option value="HS-LS2-8">HS-LS2-8</option>
+        <option value="HS-ESS3-3">HS-ESS3-3</option>
+        <option value="HS-ETS1-3">HS-ETS1-3</option>
+      </select>
+    </section>
+
+    <section class="layout">
+      <aside>
+        <div id="lessonList" class="lesson-list"></div>
+      </aside>
+      <article id="detail" class="detail" aria-live="polite"></article>
+    </section>
+
+    <p class="footer-note">Teacher note: OpenSciEd classroom curriculum materials are available through OpenSciEd.org after free registration. This dashboard summarizes the uploaded Teacher Edition for local planning and quick lookup; always use the official slides, handouts, teacher references, and keys from OpenSciEd when teaching.</p>
+  </main>
+
+  <script>
+    const DRIVE_FOLDER = "https://drive.google.com/drive/folders/1n2MzmFawPOz6bm8VCeLlWhx9jSd4eJWz";
+
+    const unitLinks = [
+      ["OpenSciEd main site / unit resources", "https://www.openscied.org/"],
+      ["Safety acknowledgment form", "https://static.nsta.org/pdfs/SafetyAcknowledgmentForm-HighSchool.pdf"],
+      ["Learning in Places framework", "http://learninginplaces.org/frameworks/complex-socio-ecological-systems-framework/"],
+      ["Snapshot Serengeti extension", "https://www.snapshotserengeti.org/"]
+    ];
+
+    const lessons = [
+      {
+        n:1,set:"Lesson Set 1",days:4,type:"Anchoring Phenomenon",pages:"Teacher Edition pp. 23–40",standards:["HS-ESS3-3","HS-LS2-6","HS-LS2-7"],
+        question:"Why do ecosystems need protection, and how are they protected?",
+        phenomenon:"Lands and waters are protected in different ways based on different criteria.",
+        do:"Students learn about the 30 by 30 Initiative, brainstorm conservation criteria, examine conservation profiles, develop initial ecosystem models, create the Driving Question Board, and decide what needs investigation.",
+        figure:["Plans exist to conserve 30% of lands and waters by 2030.","Humans have different reasons for conserving lands and waters.","Each system has unique components, interactions, and human impacts.","Protected ecosystems can help us understand how to protect systems in the future."],
+        materials:["30 by 30 Initiative","Community Agreements","Conservation Home Learning","Conservation Profile Organizer","science notebook","internet-connected device","sticky notes","chart paper / markers","optional video: https://youtu.be/dD3RRX48ods"],
+        flow:["Day 1: Introduce 30 by 30, brainstorm criteria, establish community agreements.","Day 2: Introduce conservation profiles and develop initial models.","Day 3: Revise models and gallery walk similarities/differences.","Day 4: Build Driving Question Board and ideas for investigation."],
+        equity:["Prioritize classroom agreements and discourse norms before formal discussion.","Use conservation profiles to connect ecosystems to real communities and decision-making."],
+        links:[["Optional 30 by 30 video","https://youtu.be/dD3RRX48ods"],["OpenSciEd resources","https://www.openscied.org/"]]
+      },
+      {
+        n:2,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition pp. 41–60",standards:["HS-ESS3-3","HS-LS2-6","HS-LS2-7"],
+        question:"What can other cases of conservation help us understand about ecosystems and conservation?",
+        phenomenon:"Serengeti National Park was created to protect the great animal migration route and has a history of complicated human interactions.",
+        do:"Students watch video, examine maps, read about Serengeti conservation history, complete a scavenger hunt, and create a consensus model explaining why the park and surrounding reserves were created.",
+        figure:["The Serengeti has high biodiversity, a unique large mammal migration, and endemic/endangered species.","The park was established in part to protect the great migration.","The migration is dangerous, yet animals still do it.","Human decision-making has been shaped by multiple viewpoints and priorities."],
+        materials:["Serengeti maps","history reading","Graphic Organizer","science notebook","consensus model materials","slides and teacher references from OpenSciEd"],
+        flow:["Launch from Lesson 1 conservation questions.","Gather information from maps, video, and readings.","Build a class consensus model of why the Serengeti was protected.","Navigate to why wildebeest migrate despite danger."],
+        equity:["Attend to colonial history and nature-culture relationships with care.","Plan emotional supports and provide space for student reactions."],
+        links:[["OpenSciEd resources","https://www.openscied.org/"]]
+      },
+      {
+        n:3,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition pp. 61–80",standards:["HS-LS2-1","HS-LS2-2"],
+        question:"Why do the animals in the Serengeti migrate?",
+        phenomenon:"Wildebeest field data can be organized to find patterns that explain migration.",
+        do:"Students reflect on the migration, hear from a scientist, organize wildebeest field data, create data displays, and co-construct a consensus model explaining migration patterns.",
+        figure:["Some wildebeest are killed by predators, but most deaths are from starvation.","Food is the main factor motivating the migration pattern."],
+        materials:["wildebeest field data","data display materials","science notebook","consensus model materials","teacher reference and slides"],
+        flow:["Brainstorm explanations for migration.","Analyze field data for patterns.","Create and share data displays.","Update class model and navigate to the food-migration connection."],
+        equity:["Support students in turning observations into evidence-based claims.","Make graphing/data-display expectations explicit."],
+        links:[["OpenSciEd resources","https://www.openscied.org/"]]
+      },
+      {
+        n:4,set:"Lesson Set 1",days:3,type:"Investigation",pages:"Teacher Edition pp. 81–104",standards:["HS-LS2-1","HS-LS2-2"],
+        question:"How is food driving the wildebeest migration?",
+        phenomenon:"Factors such as rain affect wildebeest migration in the Serengeti.",
+        do:"Students investigate rain as a proxy for food/grass, use mathematical data representations, and determine where rain explains wildebeest location and where other limiting factors matter.",
+        figure:["The Serengeti has wet and dry seasons.","Rain is related to location some of the time.","Other limiting factors influence wildebeest location at different times of year."],
+        materials:["Investigating Rainfall Data","CODAP data excursions","Google Form for graphs","science notebook","internet-connected devices"],
+        flow:["Connect food questions to rainfall data.","Analyze seasonal and location patterns.","Use data displays to support claims.","Navigate to population size and carrying capacity."],
+        equity:["Allow digital graphing tools when they reduce barriers while keeping focus on sensemaking."],
+        links:[["CODAP Data Excursion Part 1","https://www.openscied.org/general/dataexcursion1/"],["CODAP Data Excursion Part 2","https://www.openscied.org/general/dataexcursion2/"],["Graph collection Google Form copy","https://docs.google.com/forms/d/1ikJBSMgDTIxrw4Zi2fraTMXMD5AoJi3qA_0Y39kckjs/copy"]]
+      },
+      {
+        n:5,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition pp. 105–126",standards:["HS-LS2-1","HS-LS2-2"],
+        question:"How does food affect the population size?",
+        phenomenon:"The wildebeest population is large when there is a lot of access to food/grass.",
+        do:"Students use a kinesthetic model, collect and analyze class data, develop algorithms, analyze historical wildebeest population data, and connect limiting factors to carrying capacity.",
+        figure:["Food availability is the main limiting factor regulating wildebeest population.","When food is abundant, population growth can be rapid.","Competition for food slows growth as the population becomes large.","When births and deaths are roughly equal, the population stabilizes around carrying capacity.","Migration increases carrying capacity by increasing access to food."],
+        materials:["Serengeti Kinesthetic Model","Wildebeest Population Data","Progress Tracker","Conservation Profile Organizer","open space","chart paper / markers","electronic exit ticket"],
+        flow:["Day 1: Map system parts, run kinesthetic model, develop algorithms.","Day 2: Analyze population data, discuss carrying capacity, update Progress Tracker, complete exit ticket."],
+        equity:["Use multiple models—kinesthetic, mathematical, graphical—to support varied ways of making sense."],
+        links:[["OpenSciEd resources","https://www.openscied.org/"]]
+      },
+      {
+        n:6,set:"Lesson Set 1",days:2,type:"Putting Pieces Together",pages:"Teacher Edition pp. 127–140",standards:["HS-LS2-1","HS-LS2-2"],
+        question:"Can we apply what we figured out about limiting factors and carrying capacity to a new scenario?",
+        phenomenon:"Scientists want to reintroduce African wild dogs from South Africa to a new national park in Malawi.",
+        do:"Students complete a transfer task applying limiting factors and carrying capacity to African wild dogs in Liwonde National Park, then revisit the Driving Question Board to identify what else they need to know.",
+        figure:["Space, food, and predation can be limiting factors for wild dogs.","Data about limiting factors can be used to determine carrying capacity.","Liwonde National Park can support one pack of African wild dogs.","More information is needed about predators in the Serengeti ecosystem."],
+        materials:["African Wild Dog Transfer Task","Progress Tracker","Investigating Rainfall Data","Wildebeest Population Data","science notebooks"],
+        flow:["Review limiting factors and carrying capacity.","Prepare for transfer task with partner support.","Complete final task component individually.","Navigate to predator roles in the Serengeti."],
+        equity:["Partner sensemaking before individual assessment reduces barriers for the first transfer task."],
+        links:[["Wild dog relocation video","https://www.youtube.com/watch?v=S1m00A6koE0"],["Liwonde updates","https://www.africanparks.org/the-parks/liwonde"]]
+      },
+      {
+        n:7,set:"Lesson Set 2",days:3,type:"Investigation",pages:"Teacher Edition pp. 141–156",standards:["HS-LS2-8","HS-LS2-6"],
+        question:"How do predators interact with the wildebeest migration?",
+        phenomenon:"Predators such as lions and spotted hyenas interact with the wildebeest migration.",
+        do:"Students read about wildebeest and predator behaviors, translate behaviors into rules for an agent-based modeling game, play the game, and analyze data to determine how group behavior affects survival.",
+        figure:["Wildebeest and predator behaviors can inform initial conditions and rules in a model.","Algorithms can provide evidence to explain interactions.","Group behavior increases survival across multiple species.","Models have limits that affect conclusions."],
+        materials:["predator/prey readings","agent-based modeling game materials","data collection sheets","science notebook","Progress Tracker"],
+        flow:["Read about predator and prey behavior.","Create or use behavioral rules/algorithms.","Run the model/game and collect data.","Discuss model limitations and need to add more ecosystem components."],
+        equity:["Make algorithm rules visible and discuss how model assumptions influence evidence."],
+        links:[["OpenSciEd resources","https://www.openscied.org/"]]
+      },
+      {
+        n:8,set:"Lesson Set 2",days:2,type:"Investigation",pages:"Teacher Edition pp. 157–182",standards:["HS-LS2-2","HS-LS2-6","HS-ESS3-3"],
+        question:"What other components of the Serengeti system interact with the migration?",
+        phenomenon:"The Serengeti successfully supports many different organisms.",
+        do:"Students gather information about additional Serengeti components, build a more complex model with mechanisms and mathematical relationships, use SageModeler to test predictions, and explain biodiversity and resilience.",
+        figure:["Many ecosystem components connect to the wildebeest migration.","Interactions include predator/prey, group behavior, and competition.","Wildebeest are a keystone species whose migration supports biodiversity.","Biodiversity contributes to ecosystem stability and resilience after disturbance."],
+        materials:["Serengeti Component Articles","Serengeti Component Interactions","Computational Model Instructions","Testing Predictions","Progress Tracker","internet-connected devices","SageModeler templates","electronic exit ticket"],
+        flow:["Day 1: Research Serengeti components and interactions.","Day 2: Use computational model, test predictions, update Progress Tracker, complete exit ticket, revisit DQB."],
+        equity:["Provide multiple modalities for modeling and prediction; keep community agreements visible."],
+        links:[["SageModeler prediction-testing template","https://sagemodeler.concord.org/app/#shared=https%3A%2F%2Fcfm-shared.concord.org%2FhAJ19QV007O84EX25BiN%2Ffile.json"],["SageModeler editable class model","https://sagemodeler.concord.org/app/#shared=https%3A%2F%2Fcfm-shared.concord.org%2FMeWrQxm3KhvkTD5nJ8al%2Ffile.json"],["Lesson 8 exit ticket Google Form copy","https://docs.google.com/forms/d/1CmuK41jTigco1xCLG7lNSx09dbYeJWhEJfU55LOl39g/copy"]]
+      },
+      {
+        n:9,set:"Lesson Set 3",days:3,type:"Investigation",pages:"Teacher Edition pp. 183–198",standards:["HS-LS2-6","HS-LS2-7","HS-ETS1-3","HS-ESS3-3"],
+        question:"How do humans interact with the Serengeti ecosystem?",
+        phenomenon:"Tanzanians are considering building a road in the Serengeti.",
+        do:"Students add human interest holders to ecosystem models, evaluate whether Serengeti conservation has worked, analyze competing road proposals, consider trade-offs, and complete an individual assessment.",
+        figure:["Creating the park protected the wildebeest migration and system stability.","Because wildebeest connect to many parts of the system, protecting them supports biodiversity.","Some interest holders benefit while others are harmed.","Successful conservation involves relationships between conservation managers and the broader community.","Short- and long-term consequences must be considered in conservation decisions."],
+        materials:["class consensus model from Lesson 8","Graphic Organizer","Conservation Plan Evaluation","Interest Holder Cards","Road Proposal Cards","Road Proposal Organizer","Road Proposal Evaluation","Individual Assessment","video: https://youtu.be/V3E7_ozVrcY"],
+        flow:["Day 1: Add human interactions and evaluate the Serengeti conservation plan.","Day 2: Explore the proposed road and evaluate competing road proposals.","Day 3: Review feedback and complete individual assessment."],
+        equity:["Offer SageModeler as an option for revising models; support multiple perspectives in interest-holder analysis."],
+        links:[["Dr. Mduma / human interactions video","https://youtu.be/V3E7_ozVrcY"],["OpenSciEd resources","https://www.openscied.org/"]]
+      },
+      {
+        n:10,set:"Lesson Set 3",days:3,type:"Putting Pieces Together",pages:"Teacher Edition pp. 199–216",standards:["HS-LS2-6","HS-LS2-7","HS-ESS3-3","HS-ETS1-3"],
+        question:"How do we evaluate if a conservation effort is working?",
+        phenomenon:"Conservation success relies on the plan’s goals being met while supporting ecosystem resilience and minimizing negative impacts on interest holders.",
+        do:"Students return to Lesson 1 conservation profiles, analyze plan goals/actions/data, evaluate impacts on organisms, the system, and interest holders, and present findings to build criteria for successful conservation.",
+        figure:["Conservation success requires goals being met while supporting resilience and minimizing negative impacts.","Interest holders have different goals and may judge success differently from the overall plan.","Current conservation plans can inform how to protect more places in the future."],
+        materials:["Lesson 1 initial models or Conservation Profile Models","conservation plan readings/data packets","presentation materials","Progress Tracker","science notebook"],
+        flow:["Reconnect to the unit question and conservation profiles.","Examine plan goals, actions, data, and impacts.","Prepare and share conservation evaluations.","Navigate to applying the learning to 30 by 30 expansion."],
+        equity:["Support evidence-based evaluation of text; connect to ELA RST.9-10.8 for reasoning and evidence."],
+        links:[["OpenSciEd resources","https://www.openscied.org/"]]
+      },
+      {
+        n:11,set:"Lesson Set 3",days:1,type:"Putting Pieces Together",pages:"Teacher Edition pp. 217–222",standards:["HS-LS2-1","HS-LS2-2","HS-LS2-6","HS-LS2-7","HS-LS2-8","HS-ESS3-3","HS-ETS1-3"],
+        question:"Can we use everything we have figured out about ecosystems and conservation to expand conservation to new lands and waters?",
+        phenomenon:"The American Prairie Reserve aims to add new protected lands.",
+        do:"Students complete the culminating Prairie Transfer Task to demonstrate how ecosystems work and how ecosystem understanding can inform conservation decisions.",
+        figure:["Human-caused changes can disrupt ecosystems.","Some changes have greater or lesser effects on stability.","A change to a keystone species can affect system biodiversity.","Humans consider many criteria when deciding how to conserve or use the natural world."],
+        materials:["Progress Tracker","Prairie Transfer Task","science notebook"],
+        flow:["Review Progress Tracker and notes.","Complete Prairie Transfer Task.","Celebrate student accomplishments."],
+        equity:["Use the transfer task as a synthesis of multiple lines of evidence and student-developed models."],
+        links:[["OpenSciEd resources","https://www.openscied.org/"]]
+      }
+    ];
+
+    let selected = lessons[0].n;
+
+    function matches(l) {
+      const q = document.getElementById('search').value.toLowerCase().trim();
+      const set = document.getElementById('setFilter').value;
+      const type = document.getElementById('typeFilter').value;
+      const standard = document.getElementById('standardFilter').value;
+      const text = JSON.stringify(l).toLowerCase();
+      return (!q || text.includes(q)) && (set === 'all' || l.set === set) && (type === 'all' || l.type === type) && (standard === 'all' || l.standards.includes(standard));
+    }
+
+    function renderLessons() {
+      const list = document.getElementById('lessonList');
+      const filtered = lessons.filter(matches);
+      list.innerHTML = filtered.map(l => `
+        <button class="card ${l.n === selected ? 'active' : ''}" onclick="selectLesson(${l.n})" aria-label="Open Lesson ${l.n}">
+          <div class="lesson-num">Lesson ${l.n} • ${l.days} day${l.days > 1 ? 's' : ''}</div>
+          <h3>${l.question}</h3>
+          <div>${l.phenomenon}</div>
+          <div class="meta">
+            <span class="pill">${l.set}</span>
+            <span class="pill green">${l.type}</span>
+            <span class="pill orange">${l.pages}</span>
+          </div>
+        </button>
+      `).join('') || '<div class="notice">No lessons match your filters.</div>';
+      if (!filtered.some(l => l.n === selected) && filtered.length) selected = filtered[0].n;
+      renderDetail();
+    }
+
+    function selectLesson(n) { selected = n; renderLessons(); }
+
+    function listItems(arr) { return '<ul>' + arr.map(x => `<li>${x}</li>`).join('') + '</ul>'; }
+    function linkItems(arr) { return '<div class="links">' + arr.map(([label,url]) => `<a href="${url}" target="_blank" rel="noopener">${label}</a>`).join('') + '</div>'; }
+    function driveSearchUrl(lessonNumber, kind='') {
+      const q = encodeURIComponent(`Unit B.1 Lesson ${lessonNumber} ${kind}`.trim());
+      return `https://drive.google.com/drive/search?q=${q}`;
+    }
+    function resourceButtons(l) {
+      const buttons = [
+        ['Open Slides', driveSearchUrl(l.n, 'slides')],
+        ['Open Handout', driveSearchUrl(l.n, 'handout student materials')],
+        ['Open Teacher Materials', driveSearchUrl(l.n, 'teacher materials')],
+        ['Download-All Folder', DRIVE_FOLDER]
+      ];
+      return `<div class="resource-buttons">${buttons.map(([label,url]) => `<a class="resource-btn" href="${url}" target="_blank" rel="noopener">${label}</a>`).join('')}</div>`;
+    }
+    function prepChecklist(l) {
+      return `<div class="checklist">
+        <label><input type="checkbox"> Open official OpenSciEd lesson materials</label>
+        <label><input type="checkbox"> Review teacher guide pages: ${l.pages}</label>
+        <label><input type="checkbox"> Preview slides</label>
+        <label><input type="checkbox"> Print/share student handouts</label>
+        <label><input type="checkbox"> Prepare materials: ${l.materials.slice(0,4).join(', ')}</label>
+        <label><input type="checkbox"> Review equity/accessibility supports</label>
+        <label><input type="checkbox"> Prepare exit ticket or assessment, if used</label>
+      </div>`;
+    }
+    function flowItems(arr) { return '<div class="timeline">' + arr.map((x,i) => `<div class="step"><b>${i+1}.</b> ${x}</div>`).join('') + '</div>'; }
+
+    function renderDetail() {
+      const l = lessons.find(x => x.n === selected) || lessons[0];
+      document.getElementById('detail').innerHTML = `
+        <div class="detail-head">
+          <div class="lesson-num">Lesson ${l.n} • ${l.set} • ${l.type}</div>
+          <h2>${l.question}</h2>
+          <div class="meta">
+            <span class="pill">${l.days} class day${l.days > 1 ? 's' : ''}</span>
+            <span class="pill orange">${l.pages}</span>
+            ${l.standards.map(s => `<span class="pill green">${s}</span>`).join('')}
+          </div>
+        </div>
+        <div class="detail-body">
+          <div class="notice"><b>Quick planning cue:</b> Download/verify the official teacher guide, slides, student handouts, references, and keys for this lesson through OpenSciEd before teaching.</div>
+          <div class="section"><h4>Phenomenon / Design Problem</h4><p>${l.phenomenon}</p></div>
+          <div class="section"><h4>What students do</h4><p>${l.do}</p></div>
+          <div class="twocol">
+            <div class="section"><h4>What students figure out</h4>${listItems(l.figure)}</div>
+            <div class="section"><h4>Materials & prep lookup</h4>${listItems(l.materials)}</div>
+          </div>
+          <div class="section"><h4>Lesson flow snapshot</h4>${flowItems(l.flow)}</div>
+          <div class="twocol">
+            <div class="section"><h4>Equity / accessibility reminders</h4>${listItems(l.equity)}</div>
+            <div class="section"><h4>OpenSciEd / external links</h4>${linkItems(l.links.concat(unitLinks.slice(0,1)))}</div>
+          <div class="section"><h4>Google Drive Lesson Resources</h4>
+            ${resourceButtons(l)}
+            <div class="links" style="margin-top:10px;">
+              <a href="${DRIVE_FOLDER}" target="_blank">Open Full Unit Drive Folder</a>
+            </div>
+            <p style="margin:8px 0 0; font-size:13px; color:var(--muted);">
+              Buttons use Google Drive search terms for this lesson. Replace these URLs with exact file links once your Drive folder structure is finalized.
+            </p>
+          </div>
+          <div class="section"><h4>Daily Prep Checklist</h4>${prepChecklist(l)}</div>
+          </div>
+          <div class="section"><h4>Unit-wide teacher links</h4>${linkItems(unitLinks)}</div>
+        </div>
+      `;
+    }
+
+    function resetFilters() {
+      document.getElementById('search').value = '';
+      document.getElementById('setFilter').value = 'all';
+      document.getElementById('typeFilter').value = 'all';
+      document.getElementById('standardFilter').value = 'all';
+      selected = 1;
+      renderLessons();
+    }
+
+    renderLessons();
+  </script>
+</body>
+</html>
