@@ -657,5 +657,99 @@
     window.resetTimer = resetTimer;
     window.randomTalkMove = randomTalkMove;
   </script>
+<script>
+  // Reliable classroom controls: separate script so buttons work even after lesson content re-renders.
+  (function () {
+    let timerId = null;
+    let secondsLeft = 0;
+
+    const talkMoves = [
+      'Can you say more about that?',
+      'What evidence supports your idea?',
+      'Who can add on to that thinking?',
+      'Do you agree or disagree? What is your evidence?',
+      'How does this connect to our model?',
+      'What pattern do you notice?',
+      'What might be another explanation?',
+      'What would happen if one part of the system changed?',
+      'Can someone restate that in their own words?',
+      'What data would help us decide?'
+    ];
+
+    function updateDisplay() {
+      const display = document.getElementById('timerDisplay');
+      if (!display) return;
+      const min = String(Math.floor(secondsLeft / 60)).padStart(2, '0');
+      const sec = String(secondsLeft % 60).padStart(2, '0');
+      display.textContent = `${min}:${sec}`;
+    }
+
+    function startClassTimer(seconds) {
+      clearInterval(timerId);
+      secondsLeft = seconds;
+      updateDisplay();
+      timerId = setInterval(function () {
+        secondsLeft -= 1;
+        if (secondsLeft <= 0) {
+          secondsLeft = 0;
+          clearInterval(timerId);
+          timerId = null;
+        }
+        updateDisplay();
+      }, 1000);
+    }
+
+    function stopClassTimer() {
+      clearInterval(timerId);
+      timerId = null;
+    }
+
+    function resetClassTimer() {
+      clearInterval(timerId);
+      timerId = null;
+      secondsLeft = 0;
+      updateDisplay();
+    }
+
+    function showTalkMove() {
+      const box = document.getElementById('talkMove');
+      if (!box) return;
+      const current = box.textContent;
+      let next = current;
+      while (next === current && talkMoves.length > 1) {
+        next = talkMoves[Math.floor(Math.random() * talkMoves.length)];
+      }
+      box.textContent = next;
+    }
+
+    document.addEventListener('click', function (event) {
+      const timerButton = event.target.closest('[data-timer]');
+      if (timerButton) {
+        event.preventDefault();
+        startClassTimer(Number(timerButton.getAttribute('data-timer')));
+        return;
+      }
+
+      const actionButton = event.target.closest('[data-timer-action]');
+      if (actionButton) {
+        event.preventDefault();
+        const action = actionButton.getAttribute('data-timer-action');
+        if (action === 'stop') stopClassTimer();
+        if (action === 'reset') resetClassTimer();
+        return;
+      }
+
+      const talkButton = event.target.closest('[data-talk-move]');
+      if (talkButton) {
+        event.preventDefault();
+        showTalkMove();
+      }
+    });
+
+    window.addEventListener('load', function () {
+      updateDisplay();
+    });
+  })();
+</script>
 </body>
 </html>
