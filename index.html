@@ -124,7 +124,7 @@
 
   <main class="wrap">
     <div style="margin-bottom:12px; display:flex; gap:10px;">
-      <button class="btn dark" onclick="toggleLiveMode()">Toggle Live Teaching Mode</button>
+      <button class="btn dark" data-live-toggle="true">Toggle Live Teaching Mode</button>
     </div>
     <section class="grid stats" aria-label="Unit stats">
       <div class="stat"><b>11</b><span>Lessons</span></div>
@@ -745,6 +745,13 @@
       if (talkButton) {
         event.preventDefault();
         showTalkMove();
+        return;
+      }
+
+      const liveButton = event.target.closest('[data-live-toggle]');
+      if (liveButton) {
+        event.preventDefault();
+        document.body.classList.toggle('live-mode');
       }
     });
 
