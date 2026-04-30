@@ -15,42 +15,21 @@
       --green: #8bbf45;
       --orange: #f28c28;
       --blue: #3366aa;
+      --red: #b84c3d;
       --line: #d9e2e5;
       --shadow: 0 10px 28px rgba(23,36,42,.10);
       --radius: 18px;
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.45;
-    }
-    header {
-      background: linear-gradient(135deg, #5f8991, #86a9ae 55%, #e9f0f1);
-      color: white;
-      padding: 34px 24px 26px;
-    }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.45; }
+    header { background: linear-gradient(135deg, #5f8991, #6f8586 55%, #234d35); color: white; padding: 34px 24px 26px; }
     .wrap { max-width: 1240px; margin: 0 auto; }
     .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 700; opacity: .92; }
     h1 { margin: 8px 0 8px; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; }
     .subtitle { max-width: 850px; font-size: 18px; opacity: .96; }
     .top-actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn {
-      border: 1px solid rgba(255,255,255,.65);
-      border-radius: 999px;
-      padding: 10px 14px;
-      background: rgba(255,255,255,.16);
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .btn.dark { background: var(--teal-dark); border-color: var(--teal-dark); }
+    .btn { border: 1px solid rgba(255,255,255,.65); border-radius: 999px; padding: 10px 14px; background: rgba(255,255,255,.16); color: white; text-decoration: none; font-weight: 700; font-size: 14px; cursor: pointer; }
     main { padding: 24px; }
-    .stats-wrap { margin-top: 0; }
     .grid { display: grid; gap: 18px; }
     .stats { grid-template-columns: repeat(4, minmax(0,1fr)); margin-top: 22px; }
     .stat, .card, .toolbar, .detail { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
@@ -58,12 +37,10 @@
     .stat b { display:block; font-size: 32px; color: var(--teal-dark); }
     .stat span { color: var(--muted); font-size: 14px; }
     .toolbar { margin: 22px 0; padding: 16px; display: grid; gap: 12px; grid-template-columns: 1.4fr repeat(3, .7fr); align-items: center; }
-    input, select {
-      width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 12px 13px; font: inherit; background: white; color: var(--ink);
-    }
-    .layout { display: grid; grid-template-columns: 380px 1fr; gap: 20px; align-items: start; }
+    input, select { width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 12px 13px; font: inherit; background: white; color: var(--ink); }
+    .layout { display: grid; grid-template-columns: 390px 1fr; gap: 20px; align-items: start; }
     .lesson-list { display: grid; gap: 12px; }
-    .card { padding: 16px; cursor: pointer; transition: .18s ease; }
+    .card { padding: 16px; cursor: pointer; transition: .18s ease; text-align:left; }
     .card:hover, .card.active { transform: translateY(-2px); border-color: var(--teal); box-shadow: 0 14px 32px rgba(23,36,42,.14); }
     .lesson-num { color: var(--teal-dark); font-weight: 900; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
     .card h3 { margin: 6px 0 8px; font-size: 18px; }
@@ -75,46 +52,47 @@
     .detail-head { padding: 22px; background: #eef4f5; border-bottom: 1px solid var(--line); }
     .detail-head h2 { margin: 6px 0 8px; font-size: 28px; }
     .detail-body { padding: 22px; display: grid; gap: 18px; }
-    .sticky-resource { position: sticky; top: 0; z-index: 5; border-radius: 0; border-left: 0; border-right: 0; box-shadow: 0 8px 18px rgba(23,36,42,.10); }
     .section { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: #fff; }
     .section h4 { margin: 0 0 10px; color: var(--teal-dark); font-size: 15px; text-transform: uppercase; letter-spacing: .08em; }
+    details.section summary { cursor: pointer; list-style: none; }
+    details.section summary::-webkit-details-marker { display:none; }
+    details.section summary h4::after { content: " +"; float:right; color:var(--muted); }
+    details.section[open] summary h4::after { content: " –"; }
     ul { margin: 8px 0 0; padding-left: 20px; }
     li { margin: 5px 0; }
     .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .links a { display:block; color: var(--blue); font-weight: 700; text-decoration: none; margin: 8px 0; }
-    .resource-buttons { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-top: 8px; }
-    .resource-btn { display:flex; align-items:center; justify-content:center; text-align:center; min-height:44px; border-radius: 12px; background: var(--teal-dark); color: white; text-decoration:none; font-weight:800; padding: 10px; }
-    .resource-btn:nth-child(2) { background: var(--green); }
-    .resource-btn:nth-child(3) { background: var(--blue); }
-    .resource-btn:nth-child(4) { background: var(--orange); }
-    .checklist { display:grid; gap:8px; }
-    .checklist label { display:flex; gap:9px; align-items:flex-start; padding:8px 10px; border:1px solid var(--line); border-radius:10px; background:#f8fbfb; }
-    .checklist input { width:auto; margin-top:3px; }
     .links a:hover { text-decoration: underline; }
     .timeline { display:grid; gap: 10px; }
     .step { padding: 10px 12px; border-left: 4px solid var(--teal); background: #f8fbfb; border-radius: 10px; }
     .step b { color: var(--teal-dark); }
     .notice { background:#fff8eb; border:1px solid #f4d6a8; color:#5d4218; padding: 12px 14px; border-radius: 14px; }
-    .footer-note { color: var(--muted); font-size: 13px; margin: 28px 0 8px; }
-    @media (max-width: 980px) { .toolbar, .layout, .twocol { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, minmax(0,1fr)); } .detail { position: static; } }
-    @media (max-width: 560px) { header { padding: 26px 16px 22px; } main { padding: 16px; } .stats { grid-template-columns: 1fr; margin-top: 16px; } .stat b { font-size: 28px; } .resource-buttons { grid-template-columns: 1fr; } }
-    @media print { header, .toolbar, .lesson-list { display:none; } main { padding:0; } .layout, .twocol { display:block; } .detail { box-shadow:none; border:none; } }
-  
+    .resource-buttons { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 8px; }
+    .resource-btn { display:flex; align-items:center; justify-content:center; text-align:center; min-height:44px; border-radius: 12px; background: var(--teal-dark); color: white; text-decoration:none; font-weight:800; padding: 10px; }
+    .sticky-resource { position: sticky; top: 0; z-index: 5; border-radius: 14px; box-shadow: 0 8px 18px rgba(23,36,42,.10); }
+    .checklist { display:grid; gap:8px; }
+    .checklist label { display:flex; gap:9px; align-items:flex-start; padding:8px 10px; border:1px solid var(--line); border-radius:10px; background:#f8fbfb; }
+    .checklist input { width:auto; margin-top:3px; }
     .timer-row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
     .timer-btn { border:0; border-radius:999px; padding:10px 14px; background:var(--teal-dark); color:white; font-weight:800; cursor:pointer; }
     .timer-btn.secondary { background:var(--muted); }
     .timer-display { font-size:30px; font-weight:900; color:var(--teal-dark); min-width:110px; }
     .talk-move { font-size:18px; font-weight:800; color:var(--teal-dark); padding:12px; background:#f8fbfb; border-radius:12px; border:1px solid var(--line); }
-    </style>
+    .footer-note { color: var(--muted); font-size: 13px; margin: 28px 0 8px; }
+    @media (max-width: 980px) { .toolbar, .layout, .twocol { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, minmax(0,1fr)); } .detail { position: static; } }
+    @media (max-width: 560px) { header { padding: 26px 16px 22px; } main { padding: 16px; } .stats { grid-template-columns: 1fr; margin-top: 16px; } .stat b { font-size: 28px; } }
+    @media print { header, .toolbar, .lesson-list { display:none; } main { padding:0; } .layout, .twocol { display:block; } .detail { box-shadow:none; border:none; } }
+  </style>
 </head>
 <body>
   <header>
     <div class="wrap">
       <div class="eyebrow">OpenSciEd High School Biology • Unit B.1</div>
-      <h1>Ecosystem Interactions & Dynamics: Serengeti</h1>
-      
+      <h1>Ecosystems: Serengeti</h1>
+      <div class="subtitle">Interactive lesson-by-lesson teacher lookup dashboard for ecosystem interactions, population dynamics, biodiversity, and conservation decision-making.</div>
       <div class="top-actions">
         <a class="btn" href="https://www.openscied.org/" target="_blank" rel="noopener">OpenSciEd.org</a>
+        <a class="btn" href="https://drive.google.com/drive/folders/1n2MzmFawPOz6bm8VCeLlWhx9jSd4eJWz" target="_blank" rel="noopener">Official Unit Drive</a>
         <button class="btn" onclick="window.print()">Print selected lesson</button>
         <button class="btn" onclick="resetFilters()">Reset filters</button>
       </div>
@@ -122,27 +100,27 @@
   </header>
 
   <main class="wrap">
-    
     <section class="grid stats" aria-label="Unit stats">
       <div class="stat"><b>11</b><span>Lessons</span></div>
-      <div class="stat"><b>27</b><span>Total class days</span></div>
+      <div class="stat"><b>~24</b><span>Class days</span></div>
       <div class="stat"><b>3</b><span>Lesson sets</span></div>
-      <div class="stat"><b>6+</b><span>NGSS PEs supported</span></div>
+      <div class="stat"><b>NGSS</b><span>Ecosystems & design</span></div>
     </section>
 
     <section class="toolbar" aria-label="Filters">
       <input id="search" placeholder="Search lessons, standards, materials, concepts…" oninput="renderLessons()" />
       <select id="setFilter" onchange="renderLessons()">
         <option value="all">All lesson sets</option>
-        <option value="Lesson Set 1">Lesson Set 1: Populations</option>
-        <option value="Lesson Set 2">Lesson Set 2: Interactions</option>
-        <option value="Lesson Set 3">Lesson Set 3: Conservation</option>
+        <option value="Lesson Set 1">Lesson Set 1: Serengeti populations</option>
+        <option value="Lesson Set 2">Lesson Set 2: Interactions and carrying capacity</option>
+        <option value="Lesson Set 3">Lesson Set 3: Conservation decisions</option>
       </select>
       <select id="typeFilter" onchange="renderLessons()">
         <option value="all">All lesson types</option>
         <option value="Anchoring Phenomenon">Anchoring Phenomenon</option>
         <option value="Investigation">Investigation</option>
         <option value="Putting Pieces Together">Putting Pieces Together</option>
+        <option value="Transfer / Assessment">Transfer / Assessment</option>
       </select>
       <select id="standardFilter" onchange="renderLessons()">
         <option value="all">All NGSS</option>
@@ -150,607 +128,276 @@
         <option value="HS-LS2-2">HS-LS2-2</option>
         <option value="HS-LS2-6">HS-LS2-6</option>
         <option value="HS-LS2-7">HS-LS2-7</option>
-        <option value="HS-LS2-8">HS-LS2-8</option>
-        <option value="HS-ESS3-3">HS-ESS3-3</option>
-        <option value="HS-ETS1-3">HS-ETS1-3</option>
+        <option value="HS-LS4-6">HS-LS4-6</option>
       </select>
     </section>
 
     <section class="layout">
-      <aside>
-        <div id="lessonList" class="lesson-list"></div>
-      </aside>
+      <aside><div id="lessonList" class="lesson-list"></div></aside>
       <article id="detail" class="detail" aria-live="polite"></article>
     </section>
 
-    <p class="footer-note">Teacher note: OpenSciEd classroom curriculum materials are available through OpenSciEd.org after free registration. This dashboard summarizes the uploaded Teacher Edition for local planning and quick lookup; always use the official slides, handouts, teacher references, and keys from OpenSciEd when teaching.</p>
+    <p class="footer-note">Teacher note: This rebuilt version uses double-quoted literacy strings to avoid broken JavaScript arrays when adding expanded disciplinary literacy items.</p>
   </main>
 
-  <script>
-    const DRIVE_FOLDER = "https://drive.google.com/drive/folders/1n2MzmFawPOz6bm8VCeLlWhx9jSd4eJWz";
-
-    const unitLinks = [
-      ["OpenSciEd main site / unit resources", "https://www.openscied.org/"],
-      ["Safety acknowledgment form", "https://static.nsta.org/pdfs/SafetyAcknowledgmentForm-HighSchool.pdf"],
-      ["Learning in Places framework", "http://learninginplaces.org/frameworks/complex-socio-ecological-systems-framework/"],
-      ["Snapshot Serengeti extension", "https://www.snapshotserengeti.org/"]
-    ];
-
-    const lessons = [
-      {
-        n:1,set:"Lesson Set 1",days:4,type:"Anchoring Phenomenon",pages:"Teacher Edition pp. 23–40",standards:["HS-ESS3-3","HS-LS2-6","HS-LS2-7"],
-        question:"Why do ecosystems need protection, and how are they protected?",
-        phenomenon:"Lands and waters are protected in different ways based on different criteria.",
-        do:"Students learn about the 30 by 30 Initiative, brainstorm conservation criteria, examine conservation profiles, develop initial ecosystem models, create the Driving Question Board, and decide what needs investigation.",
-        figure:["Plans exist to conserve 30% of lands and waters by 2030.","Humans have different reasons for conserving lands and waters.","Each system has unique components, interactions, and human impacts.","Protected ecosystems can help us understand how to protect systems in the future."],
-        materials:["30 by 30 Initiative","Community Agreements","Conservation Home Learning","Conservation Profile Organizer","science notebook","internet-connected device","sticky notes","chart paper / markers","optional video: https://youtu.be/dD3RRX48ods"],
-        flow:["Day 1: Introduce 30 by 30, brainstorm criteria, establish community agreements.","Day 2: Introduce conservation profiles and develop initial models.","Day 3: Revise models and gallery walk similarities/differences.","Day 4: Build Driving Question Board and ideas for investigation."],
-        equity:["Prioritize classroom agreements and discourse norms before formal discussion.","Use conservation profiles to connect ecosystems to real communities and decision-making."],
-        links:[["Optional 30 by 30 video","https://youtu.be/dD3RRX48ods"],["OpenSciEd resources","https://www.openscied.org/"]]
-      },
-      {
-        n:2,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition pp. 41–60",standards:["HS-ESS3-3","HS-LS2-6","HS-LS2-7"],
-        question:"What can other cases of conservation help us understand about ecosystems and conservation?",
-        phenomenon:"Serengeti National Park was created to protect the great animal migration route and has a history of complicated human interactions.",
-        do:"Students watch video, examine maps, read about Serengeti conservation history, complete a scavenger hunt, and create a consensus model explaining why the park and surrounding reserves were created.",
-        figure:["The Serengeti has high biodiversity, a unique large mammal migration, and endemic/endangered species.","The park was established in part to protect the great migration.","The migration is dangerous, yet animals still do it.","Human decision-making has been shaped by multiple viewpoints and priorities."],
-        materials:["Serengeti maps","history reading","Graphic Organizer","science notebook","consensus model materials","slides and teacher references from OpenSciEd"],
-        flow:["Launch from Lesson 1 conservation questions.","Gather information from maps, video, and readings.","Build a class consensus model of why the Serengeti was protected.","Navigate to why wildebeest migrate despite danger."],
-        equity:["Attend to colonial history and nature-culture relationships with care.","Plan emotional supports and provide space for student reactions."],
-        links:[["OpenSciEd resources","https://www.openscied.org/"]]
-      },
-      {
-        n:3,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition pp. 61–80",standards:["HS-LS2-1","HS-LS2-2"],
-        question:"Why do the animals in the Serengeti migrate?",
-        phenomenon:"Wildebeest field data can be organized to find patterns that explain migration.",
-        do:"Students reflect on the migration, hear from a scientist, organize wildebeest field data, create data displays, and co-construct a consensus model explaining migration patterns.",
-        figure:["Some wildebeest are killed by predators, but most deaths are from starvation.","Food is the main factor motivating the migration pattern."],
-        materials:["wildebeest field data","data display materials","science notebook","consensus model materials","teacher reference and slides"],
-        flow:["Brainstorm explanations for migration.","Analyze field data for patterns.","Create and share data displays.","Update class model and navigate to the food-migration connection."],
-        equity:["Support students in turning observations into evidence-based claims.","Make graphing/data-display expectations explicit."],
-        links:[["OpenSciEd resources","https://www.openscied.org/"]]
-      },
-      {
-        n:4,set:"Lesson Set 1",days:3,type:"Investigation",pages:"Teacher Edition pp. 81–104",standards:["HS-LS2-1","HS-LS2-2"],
-        question:"How is food driving the wildebeest migration?",
-        phenomenon:"Factors such as rain affect wildebeest migration in the Serengeti.",
-        do:"Students investigate rain as a proxy for food/grass, use mathematical data representations, and determine where rain explains wildebeest location and where other limiting factors matter.",
-        figure:["The Serengeti has wet and dry seasons.","Rain is related to location some of the time.","Other limiting factors influence wildebeest location at different times of year."],
-        materials:["Investigating Rainfall Data","CODAP data excursions","Google Form for graphs","science notebook","internet-connected devices"],
-        flow:["Connect food questions to rainfall data.","Analyze seasonal and location patterns.","Use data displays to support claims.","Navigate to population size and carrying capacity."],
-        equity:["Allow digital graphing tools when they reduce barriers while keeping focus on sensemaking."],
-        links:[["CODAP Data Excursion Part 1","https://www.openscied.org/general/dataexcursion1/"],["CODAP Data Excursion Part 2","https://www.openscied.org/general/dataexcursion2/"],["Graph collection Google Form copy","https://docs.google.com/forms/d/1ikJBSMgDTIxrw4Zi2fraTMXMD5AoJi3qA_0Y39kckjs/copy"]]
-      },
-      {
-        n:5,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition pp. 105–126",standards:["HS-LS2-1","HS-LS2-2"],
-        question:"How does food affect the population size?",
-        phenomenon:"The wildebeest population is large when there is a lot of access to food/grass.",
-        do:"Students use a kinesthetic model, collect and analyze class data, develop algorithms, analyze historical wildebeest population data, and connect limiting factors to carrying capacity.",
-        figure:["Food availability is the main limiting factor regulating wildebeest population.","When food is abundant, population growth can be rapid.","Competition for food slows growth as the population becomes large.","When births and deaths are roughly equal, the population stabilizes around carrying capacity.","Migration increases carrying capacity by increasing access to food."],
-        materials:["Serengeti Kinesthetic Model","Wildebeest Population Data","Progress Tracker","Conservation Profile Organizer","open space","chart paper / markers","electronic exit ticket"],
-        flow:["Day 1: Map system parts, run kinesthetic model, develop algorithms.","Day 2: Analyze population data, discuss carrying capacity, update Progress Tracker, complete exit ticket."],
-        equity:["Use multiple models—kinesthetic, mathematical, graphical—to support varied ways of making sense."],
-        links:[["OpenSciEd resources","https://www.openscied.org/"]]
-      },
-      {
-        n:6,set:"Lesson Set 1",days:2,type:"Putting Pieces Together",pages:"Teacher Edition pp. 127–140",standards:["HS-LS2-1","HS-LS2-2"],
-        question:"Can we apply what we figured out about limiting factors and carrying capacity to a new scenario?",
-        phenomenon:"Scientists want to reintroduce African wild dogs from South Africa to a new national park in Malawi.",
-        do:"Students complete a transfer task applying limiting factors and carrying capacity to African wild dogs in Liwonde National Park, then revisit the Driving Question Board to identify what else they need to know.",
-        figure:["Space, food, and predation can be limiting factors for wild dogs.","Data about limiting factors can be used to determine carrying capacity.","Liwonde National Park can support one pack of African wild dogs.","More information is needed about predators in the Serengeti ecosystem."],
-        materials:["African Wild Dog Transfer Task","Progress Tracker","Investigating Rainfall Data","Wildebeest Population Data","science notebooks"],
-        flow:["Review limiting factors and carrying capacity.","Prepare for transfer task with partner support.","Complete final task component individually.","Navigate to predator roles in the Serengeti."],
-        equity:["Partner sensemaking before individual assessment reduces barriers for the first transfer task."],
-        links:[["Wild dog relocation video","https://www.youtube.com/watch?v=S1m00A6koE0"],["Liwonde updates","https://www.africanparks.org/the-parks/liwonde"]]
-      },
-      {
-        n:7,set:"Lesson Set 2",days:3,type:"Investigation",pages:"Teacher Edition pp. 141–156",standards:["HS-LS2-8","HS-LS2-6"],
-        question:"How do predators interact with the wildebeest migration?",
-        phenomenon:"Predators such as lions and spotted hyenas interact with the wildebeest migration.",
-        do:"Students read about wildebeest and predator behaviors, translate behaviors into rules for an agent-based modeling game, play the game, and analyze data to determine how group behavior affects survival.",
-        figure:["Wildebeest and predator behaviors can inform initial conditions and rules in a model.","Algorithms can provide evidence to explain interactions.","Group behavior increases survival across multiple species.","Models have limits that affect conclusions."],
-        materials:["predator/prey readings","agent-based modeling game materials","data collection sheets","science notebook","Progress Tracker"],
-        flow:["Read about predator and prey behavior.","Create or use behavioral rules/algorithms.","Run the model/game and collect data.","Discuss model limitations and need to add more ecosystem components."],
-        equity:["Make algorithm rules visible and discuss how model assumptions influence evidence."],
-        links:[["OpenSciEd resources","https://www.openscied.org/"]]
-      },
-      {
-        n:8,set:"Lesson Set 2",days:2,type:"Investigation",pages:"Teacher Edition pp. 157–182",standards:["HS-LS2-2","HS-LS2-6","HS-ESS3-3"],
-        question:"What other components of the Serengeti system interact with the migration?",
-        phenomenon:"The Serengeti successfully supports many different organisms.",
-        do:"Students gather information about additional Serengeti components, build a more complex model with mechanisms and mathematical relationships, use SageModeler to test predictions, and explain biodiversity and resilience.",
-        figure:["Many ecosystem components connect to the wildebeest migration.","Interactions include predator/prey, group behavior, and competition.","Wildebeest are a keystone species whose migration supports biodiversity.","Biodiversity contributes to ecosystem stability and resilience after disturbance."],
-        materials:["Serengeti Component Articles","Serengeti Component Interactions","Computational Model Instructions","Testing Predictions","Progress Tracker","internet-connected devices","SageModeler templates","electronic exit ticket"],
-        flow:["Day 1: Research Serengeti components and interactions.","Day 2: Use computational model, test predictions, update Progress Tracker, complete exit ticket, revisit DQB."],
-        equity:["Provide multiple modalities for modeling and prediction; keep community agreements visible."],
-        links:[["SageModeler prediction-testing template","https://sagemodeler.concord.org/app/#shared=https%3A%2F%2Fcfm-shared.concord.org%2FhAJ19QV007O84EX25BiN%2Ffile.json"],["SageModeler editable class model","https://sagemodeler.concord.org/app/#shared=https%3A%2F%2Fcfm-shared.concord.org%2FMeWrQxm3KhvkTD5nJ8al%2Ffile.json"],["Lesson 8 exit ticket Google Form copy","https://docs.google.com/forms/d/1CmuK41jTigco1xCLG7lNSx09dbYeJWhEJfU55LOl39g/copy"]]
-      },
-      {
-        n:9,set:"Lesson Set 3",days:3,type:"Investigation",pages:"Teacher Edition pp. 183–198",standards:["HS-LS2-6","HS-LS2-7","HS-ETS1-3","HS-ESS3-3"],
-        question:"How do humans interact with the Serengeti ecosystem?",
-        phenomenon:"Tanzanians are considering building a road in the Serengeti.",
-        do:"Students add human interest holders to ecosystem models, evaluate whether Serengeti conservation has worked, analyze competing road proposals, consider trade-offs, and complete an individual assessment.",
-        figure:["Creating the park protected the wildebeest migration and system stability.","Because wildebeest connect to many parts of the system, protecting them supports biodiversity.","Some interest holders benefit while others are harmed.","Successful conservation involves relationships between conservation managers and the broader community.","Short- and long-term consequences must be considered in conservation decisions."],
-        materials:["class consensus model from Lesson 8","Graphic Organizer","Conservation Plan Evaluation","Interest Holder Cards","Road Proposal Cards","Road Proposal Organizer","Road Proposal Evaluation","Individual Assessment","video: https://youtu.be/V3E7_ozVrcY"],
-        flow:["Day 1: Add human interactions and evaluate the Serengeti conservation plan.","Day 2: Explore the proposed road and evaluate competing road proposals.","Day 3: Review feedback and complete individual assessment."],
-        equity:["Offer SageModeler as an option for revising models; support multiple perspectives in interest-holder analysis."],
-        links:[["Dr. Mduma / human interactions video","https://youtu.be/V3E7_ozVrcY"],["OpenSciEd resources","https://www.openscied.org/"]]
-      },
-      {
-        n:10,set:"Lesson Set 3",days:3,type:"Putting Pieces Together",pages:"Teacher Edition pp. 199–216",standards:["HS-LS2-6","HS-LS2-7","HS-ESS3-3","HS-ETS1-3"],
-        question:"How do we evaluate if a conservation effort is working?",
-        phenomenon:"Conservation success relies on the plan’s goals being met while supporting ecosystem resilience and minimizing negative impacts on interest holders.",
-        do:"Students return to Lesson 1 conservation profiles, analyze plan goals/actions/data, evaluate impacts on organisms, the system, and interest holders, and present findings to build criteria for successful conservation.",
-        figure:["Conservation success requires goals being met while supporting resilience and minimizing negative impacts.","Interest holders have different goals and may judge success differently from the overall plan.","Current conservation plans can inform how to protect more places in the future."],
-        materials:["Lesson 1 initial models or Conservation Profile Models","conservation plan readings/data packets","presentation materials","Progress Tracker","science notebook"],
-        flow:["Reconnect to the unit question and conservation profiles.","Examine plan goals, actions, data, and impacts.","Prepare and share conservation evaluations.","Navigate to applying the learning to 30 by 30 expansion."],
-        equity:["Support evidence-based evaluation of text; connect to ELA RST.9-10.8 for reasoning and evidence."],
-        links:[["OpenSciEd resources","https://www.openscied.org/"]]
-      },
-      {
-        n:11,set:"Lesson Set 3",days:1,type:"Putting Pieces Together",pages:"Teacher Edition pp. 217–222",standards:["HS-LS2-1","HS-LS2-2","HS-LS2-6","HS-LS2-7","HS-LS2-8","HS-ESS3-3","HS-ETS1-3"],
-        question:"Can we use everything we have figured out about ecosystems and conservation to expand conservation to new lands and waters?",
-        phenomenon:"The American Prairie Reserve aims to add new protected lands.",
-        do:"Students complete the culminating Prairie Transfer Task to demonstrate how ecosystems work and how ecosystem understanding can inform conservation decisions.",
-        figure:["Human-caused changes can disrupt ecosystems.","Some changes have greater or lesser effects on stability.","A change to a keystone species can affect system biodiversity.","Humans consider many criteria when deciding how to conserve or use the natural world."],
-        materials:["Progress Tracker","Prairie Transfer Task","science notebook"],
-        flow:["Review Progress Tracker and notes.","Complete Prairie Transfer Task.","Celebrate student accomplishments."],
-        equity:["Use the transfer task as a synthesis of multiple lines of evidence and student-developed models."],
-        links:[["OpenSciEd resources","https://www.openscied.org/"]]
-      }
-    ];
-
-    let selected = lessons[0].n;
-
-    function matches(l) {
-      const q = document.getElementById('search').value.toLowerCase().trim();
-      const set = document.getElementById('setFilter').value;
-      const type = document.getElementById('typeFilter').value;
-      const standard = document.getElementById('standardFilter').value;
-      const text = JSON.stringify(l).toLowerCase();
-      return (!q || text.includes(q)) && (set === 'all' || l.set === set) && (type === 'all' || l.type === type) && (standard === 'all' || l.standards.includes(standard));
-    }
-
-    function renderLessons() {
-      const list = document.getElementById('lessonList');
-      const filtered = lessons.filter(matches);
-      list.innerHTML = filtered.map(l => `
-        <button class="card ${l.n === selected ? 'active' : ''}" onclick="selectLesson(${l.n})" aria-label="Open Lesson ${l.n}">
-          <div class="lesson-num">Lesson ${l.n} • ${l.days} day${l.days > 1 ? 's' : ''}</div>
-          <h3>${l.question}</h3>
-          <div>${l.phenomenon}</div>
-          <div class="meta">
-            <span class="pill">${l.set}</span>
-            <span class="pill green">${l.type}</span>
-            <span class="pill orange">${l.pages}</span>
-          </div>
-        </button>
-      `).join('') || '<div class="notice">No lessons match your filters.</div>';
-      if (!filtered.some(l => l.n === selected) && filtered.length) selected = filtered[0].n;
-      renderDetail();
-    }
-
-    function selectLesson(n) { selected = n; renderLessons();
-
-    function toggleLiveMode() {
-      document.body.classList.toggle('live-mode');
-    }
-
-    let timerInterval = null;
-    let timerRemaining = 0;
-
-    function updateTimerDisplay() {
-      const el = document.getElementById('timerDisplay');
-      if (!el) return;
-      const min = Math.floor(timerRemaining / 60).toString().padStart(2,'0');
-      const sec = (timerRemaining % 60).toString().padStart(2,'0');
-      el.textContent = `${min}:${sec}`;
-    }
-
-    function startTimer(seconds) {
-      stopTimer();
-      timerRemaining = seconds;
-      updateTimerDisplay();
-      timerInterval = setInterval(() => {
-        timerRemaining = Math.max(0, timerRemaining - 1);
-        updateTimerDisplay();
-        if (timerRemaining === 0) stopTimer();
-      }, 1000);
-    }
-
-    function stopTimer() {
-      if (timerInterval) clearInterval(timerInterval);
-      timerInterval = null;
-    }
-
-    function resetTimer() {
-      stopTimer();
-      timerRemaining = 0;
-      updateTimerDisplay();
-    }
-
-    const talkMoves = [
-      'Can you say more about that?',
-      'What evidence supports your idea?',
-      'Who can add on to that thinking?',
-      'Do you agree or disagree? What is your evidence?',
-      'How does this connect to our model?',
-      'What pattern do you notice?',
-      'What might be another explanation?',
-      'What would happen if one part of the system changed?',
-      'Can someone restate that in their own words?',
-      'What data would help us decide?'
-    ];
-
-    function randomTalkMove() {
-      const el = document.getElementById('talkMove');
-      if (!el) return;
-      el.textContent = talkMoves[Math.floor(Math.random() * talkMoves.length)];
-    }
-
-    // Initialize defaults after page load
-    setTimeout(() => {
-      updateTimerDisplay();
-      randomTalkMove();
-    }, 100);
-
-    function randomTalkMove_old() {
-      const el = document.getElementById('talkMove');
-      if (!el) return;
-      el.textContent = talkMoves[Math.floor(Math.random() * talkMoves.length)];
-    } }
-
-    function listItems(arr) { return '<ul>' + arr.map(x => `<li>${x}</li>`).join('') + '</ul>'; }
-    function linkItems(arr) { return '<div class="links">' + arr.map(([label,url]) => `<a href="${url}" target="_blank" rel="noopener">${label}</a>`).join('') + '</div>'; }
-    function driveSearchUrl(lessonNumber, kind='') {
-      const q = encodeURIComponent(`Unit B.1 Lesson ${lessonNumber} ${kind}`.trim());
-      return `https://drive.google.com/drive/search?q=${q}`;
-    }
-    function resourceButtons(l) {
-      const buttons = [
-        ['Open Slides', driveSearchUrl(l.n, 'slides')],
-        ['Open Handout', driveSearchUrl(l.n, 'handout student materials')],
-        ['Open Teacher Materials', driveSearchUrl(l.n, 'teacher materials')],
-        ['Download-All Folder', DRIVE_FOLDER]
-      ];
-      return `<div class="resource-buttons">${buttons.map(([label,url]) => `<a class="resource-btn" href="${url}" target="_blank" rel="noopener">${label}</a>`).join('')}</div>`;
-    }
-    function literacyItems(l) {
-      const map = {
-        1: [
-          '<b>Reading:</b> Evaluate conservation profiles to identify criteria and evidence.',
-          '<b>Writing:</b> Generate initial models and questions on the DQB.',
-          '<b>Speaking:</b> Structured brainstorming and consensus building.',
-          '<b>Data/Media:</b> Interpret maps/images of protected lands.'
-        ],
-        2: [
-          '<b>Reading:</b> Close read on Serengeti history (cause/effect, perspectives).',
-          '<b>Writing:</b> Summarize reasons for park creation with evidence.',
-          '<b>Speaking:</b> Synthesize multiple sources into a class model.',
-          '<b>Source Eval:</b> Compare viewpoints/interest holders.'
-        ],
-        3: [
-          '<b>Data Literacy:</b> Organize field data to identify patterns.',
-          '<b>Writing (CER):</b> Claim about migration drivers with evidence.',
-          '<b>Speaking:</b> Justify interpretations of data displays.'
-        ],
-        4: [
-          '<b>Data Literacy:</b> Analyze rainfall datasets; link variables.',
-          '<b>Writing (CER):</b> Explain how rain (food proxy) influences location.',
-          '<b>Math Language:</b> Use trends/relationships precisely.'
-        ],
-        5: [
-          '<b>Modeling:</b> Translate kinesthetic model to graphs/algorithms.',
-          '<b>Math/Data:</b> Interpret population graphs and rates of change.',
-          '<b>Writing (CER):</b> Explain carrying capacity and limiting factors.'
-        ],
-        6: [
-          '<b>Transfer Writing:</b> Apply concepts to a new scenario (wild dogs).',
-          '<b>Evidence Use:</b> Select relevant data to justify capacity decisions.'
-        ],
-        7: [
-          '<b>Algorithmic Thinking:</b> Convert behaviors into rules.',
-          '<b>Speaking:</b> Argue how group behavior affects survival.',
-          '<b>Model Critique:</b> Identify limits of simulations.'
-        ],
-        8: [
-          '<b>Reading:</b> Jigsaw component articles (keystone species, interactions).',
-          '<b>Modeling:</b> Build/interpret computational models.',
-          '<b>Writing:</b> Predict outcomes and explain resilience.'
-        ],
-        9: [
-          '<b>Argumentation:</b> Evaluate claims about road proposals.',
-          '<b>Speaking:</b> Debate using evidence and stakeholder perspectives.',
-          '<b>Writing (CER):</b> Recommendation with trade-offs.'
-        ],
-        10: [
-          '<b>Reading:</b> Analyze conservation plans (goals, actions, data).',
-          '<b>Writing:</b> Evaluate effectiveness using criteria.',
-          '<b>Speaking:</b> Present and defend evaluations.'
-        ],
-        11: [
-          '<b>Synthesis Writing:</b> Transfer task integrating unit ideas.',
-          '<b>Evidence Integration:</b> Combine models, data, and reasoning.',
-          '<b>Reflection:</b> Articulate how understanding informs conservation.'
-        ]
-      };
-      const items = map[l.n] || [];
-      return '<ul>' + items.map(x => `<li>${x}</li>`).join('') + '</ul>';
-    }
-
-    function sentenceStems(l) {
-      const stems = {
-        default: [
-          'My claim is that ___ because ___.',
-          'The evidence I used was ___.',
-          'This shows that ___.',
-          'I agree/disagree with ___ because ___.'
-        ],
-        data: [
-          'I notice a pattern where ___.',
-          'The data shows ___ which suggests ___.',
-          'When ___ increases, ___ also ___.',
-          'This trend might be explained by ___.'
-        ],
-        modeling: [
-          'In my model, ___ represents ___.',
-          'If ___ changes, then ___ will ___.',
-          'This interaction shows ___.'
-        ],
-        argument: [
-          'One possible solution is ___ because ___.',
-          'A trade-off to consider is ___.',
-          'From the perspective of ___, this is important because ___.'
-        ]
-      };
-
-      let use = stems.default;
-      if ([3,4,5].includes(l.n)) use = stems.data;
-      if ([5,7,8].includes(l.n)) use = stems.modeling;
-      if ([9,10,11].includes(l.n)) use = stems.argument;
-
-      return '<ul>' + use.map(s => `<li>${s}</li>`).join('') + '</ul>';
-    }
-
-    function prepChecklist(l) {
-      return `<div class="checklist">
-        <label><input type="checkbox"> Open official OpenSciEd lesson materials</label>
-        <label><input type="checkbox"> Review teacher guide pages: ${l.pages}</label>
-        <label><input type="checkbox"> Preview slides</label>
-        <label><input type="checkbox"> Print/share student handouts</label>
-        <label><input type="checkbox"> Prepare materials: ${l.materials.slice(0,4).join(', ')}</label>
-        <label><input type="checkbox"> Review equity/accessibility supports</label>
-        <label><input type="checkbox"> Prepare exit ticket or assessment, if used</label>
-      </div>`;
-    }
-    function flowItems(arr) { return '<div class="timeline">' + arr.map((x,i) => `<div class="step"><b>${i+1}.</b> ${x}</div>`).join('') + '</div>'; }
-
-    function renderDetail() {
-      setTimeout(() => {
-        updateTimerDisplay();
-      }, 0);
-      const l = lessons.find(x => x.n === selected) || lessons[0];
-      document.getElementById('detail').innerHTML = `
-        <div class="detail-head">
-          <div class="lesson-num">Lesson ${l.n} • ${l.set} • ${l.type}</div>
-          <h2>${l.question}</h2>
-          <div class="meta">
-            <span class="pill">${l.days} class day${l.days > 1 ? 's' : ''}</span>
-            <span class="pill orange">${l.pages}</span>
-            ${l.standards.map(s => `<span class="pill green">${s}</span>`).join('')}
-          </div>
-        </div>
-        <div class="detail-body">
-          <div class="section live-keep"><h4>Today at a Glance</h4>
-            <div class="timeline">
-              <div class="step"><b>Objective:</b> ${l.question}</div>
-              <div class="step"><b>Focus Activity:</b> ${l.do.split('.')[0]}</div>
-              <div class="step"><b>Success Criteria:</b> Students can explain: ${l.figure[0]}</div>
-              <div class="step"><b>Time:</b> ${l.days} class day${l.days>1?'s':''}</div>
-            </div>
-          </div>
-
-          <div class="section live-keep"><h4>Teacher Moves</h4>
-            <ul>
-              <li>Ask: "What evidence supports your claim?"</li>
-              <li>Press: "What might change if this factor increased or decreased?"</li>
-              <li>Connect: "How does this relate to previous lessons?"</li>
-              <li>Clarify: "Can you model or represent your thinking?"</li>
-            </ul>
-          </div>
-
-          <details class="section"><summary><h4>Disciplinary Literacy Strategies</h4></summary>
-            ${literacyItems(l)}
-            <div style="margin-top:12px;">
-              <h5 style="margin:0 0 6px; color:var(--teal-dark);">Student Sentence Stems</h5>
-              ${sentenceStems(l)}
-            </div>
-          </details>
-
-          <div class="section live-keep"><h4>Bell Ringer</h4>
-            <p><b>Prompt:</b> Before we begin, write one prediction or question connected to today’s lesson question:</p>
-            <div class="step">${l.question}</div>
-            <p style="margin-bottom:0;"><b>Share-out:</b> Ask students to compare ideas with a partner and identify one piece of evidence they would need.</p>
-          </div>
-
-          <div class="section live-keep"><h4>Class Timer</h4>
-            <div class="timer-row">
-              <div id="timerDisplay" class="timer-display">00:00</div>
-              <button class="timer-btn" data-timer="300">5 min</button>
-              <button class="timer-btn" data-timer="600">10 min</button>
-              <button class="timer-btn" data-timer="900">15 min</button>
-              <button class="timer-btn" data-timer="1200">20 min</button>
-              <button class="timer-btn secondary" data-timer-action="stop">Stop</button>
-              <button class="timer-btn secondary" data-timer-action="reset">Reset</button>
-            </div>
-          </div>
-
-          <div class="section live-keep"><h4>Random Talk Move</h4>
-            <div id="talkMove" class="talk-move">Click the button for a discussion prompt.</div>
-            <div style="margin-top:10px;"><button class="timer-btn" data-talk-move="new">New Talk Move</button></div>
-          </div>
-
-          <div class="section sticky-resource"><h4>Official OpenSciEd Unit Resources</h4>
-            <div class="resource-buttons">
-              <a class="resource-btn" href="https://drive.google.com/drive/folders/1n2MzmFawPOz6bm8VCeLlWhx9jSd4eJWz" target="_blank">Open Unit Google Drive</a>
-            </div>
-            <p style="margin:8px 0 0; font-size:13px; color:var(--muted);">
-              Official folder for Unit B.1 slides, handouts, and teacher materials.
-            </p>
-          </div>
-          <div class="notice"><b>Quick planning cue:</b> Download/verify the official teacher guide, slides, student handouts, references, and keys for this lesson through OpenSciEd before teaching.</div>
-          <div class="section"><h4>Phenomenon / Design Problem</h4><p>${l.phenomenon}</p></div>
-          <details class="section" open><summary><h4>What students do</h4></summary></h4><p>${l.do}</p></details>
-          <div class="twocol">
-            <details class="section"><summary><h4>What students figure out</h4></summary></h4>${listItems(l.figure)}</div>
-            <details class="section"><summary><h4>Materials & prep lookup</h4></summary></h4>${listItems(l.materials)}</div>
-          </div>
-          <details class="section live-keep" open><summary><h4>Lesson flow snapshot</h4></summary></h4>${flowItems(l.flow)}</div>
-          <div class="twocol">
-            <details class="section"><summary><h4>Equity / accessibility reminders</h4></summary></h4>${listItems(l.equity)}</details>
-          <div class="section"><h4>OpenSciEd / external links</h4>${linkItems(l.links.concat(unitLinks.slice(0,1)))}</div>
-            <p style="margin:8px 0 0; font-size:13px; color:var(--muted);">
-              
-            </p>
-          </div>
-          <div class="section"><h4>Daily Prep Checklist</h4>${prepChecklist(l)}</div>
-          </div>
-          <div class="section"><h4>Unit-wide teacher links</h4>${linkItems(unitLinks)}</div>
-        </div>
-      `;
-    }
-
-    function resetFilters() {
-      document.getElementById('search').value = '';
-      document.getElementById('setFilter').value = 'all';
-      document.getElementById('typeFilter').value = 'all';
-      document.getElementById('standardFilter').value = 'all';
-      selected = 1;
-      renderLessons();
-    }
-
-    renderLessons();
-  
-    document.addEventListener('click', function(event) {
-      const timerButton = event.target.closest('[data-timer]');
-      if (timerButton) {
-        startTimer(Number(timerButton.dataset.timer));
-        return;
-      }
-
-      const timerAction = event.target.closest('[data-timer-action]');
-      if (timerAction) {
-        if (timerAction.dataset.timerAction === 'stop') stopTimer();
-        if (timerAction.dataset.timerAction === 'reset') resetTimer();
-        return;
-      }
-
-      const talkMoveButton = event.target.closest('[data-talk-move]');
-      if (talkMoveButton) {
-        randomTalkMove();
-      }
-    });
-
-    window.startTimer = startTimer;
-    window.stopTimer = stopTimer;
-    window.resetTimer = resetTimer;
-    window.randomTalkMove = randomTalkMove;
-  </script>
 <script>
-  // Reliable classroom controls: separate script so buttons work even after lesson content re-renders.
-  (function () {
-    let timerId = null;
-    let secondsLeft = 0;
+const DRIVE_FOLDER = "https://drive.google.com/drive/folders/1n2MzmFawPOz6bm8VCeLlWhx9jSd4eJWz";
+const unitLinks = [
+  ["Official OpenSciEd B.1 Unit Drive", DRIVE_FOLDER],
+  ["OpenSciEd main site", "https://www.openscied.org/"],
+  ["Safety acknowledgment form", "https://static.nsta.org/pdfs/SafetyAcknowledgmentForm-HighSchool.pdf"]
+];
 
-    const talkMoves = [
-      'Can you say more about that?',
-      'What evidence supports your idea?',
-      'Who can add on to that thinking?',
-      'Do you agree or disagree? What is your evidence?',
-      'How does this connect to our model?',
-      'What pattern do you notice?',
-      'What might be another explanation?',
-      'What would happen if one part of the system changed?',
-      'Can someone restate that in their own words?',
-      'What data would help us decide?'
-    ];
+const lessons = [
+  {n:1,set:"Lesson Set 1",days:3,type:"Anchoring Phenomenon",pages:"Teacher Edition lesson 1",standards:["HS-LS2-2","HS-LS2-6"],question:"How do ecosystems work, and how can understanding them help us protect them?",phenomenon:"The Serengeti ecosystem contains many interacting populations and patterns that raise questions about how ecosystems work.",do:"Students explore the Serengeti anchoring phenomenon, develop initial models, create a Driving Question Board, and begin identifying ecosystem components and interactions.",figure:["Ecosystems include interacting organisms, resources, and environmental factors.","Population patterns can change over time.","Models and questions help organize what we need to figure out."],materials:["anchoring phenomenon media","science notebooks","initial model template","Driving Question Board materials","sticky notes","chart paper / markers"],flow:["Launch the Serengeti phenomenon.","Elicit student observations, questions, and prior ideas.","Develop initial models of ecosystem interactions.","Build the Driving Question Board and identify next investigations."],equity:["Use visual phenomena to create multiple entry points.","Value student questions as the driver of the unit."],links:unitLinks},
+  {n:2,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition lesson 2",standards:["HS-LS2-2","HS-LS2-6"],question:"What patterns do we notice in Serengeti populations?",phenomenon:"Population data from the Serengeti shows patterns that need explanation.",do:"Students analyze population data and textual evidence to look for relationships among organisms, resources, and environmental conditions.",figure:["Population data can show patterns over time.","Multiple sources of evidence help explain ecosystem changes.","Changes in resources and environment can influence population outcomes."],materials:["population data sets","Serengeti readings","data organizers","graphing tools","science notebooks"],flow:["Review questions from the DQB.","Analyze initial population data.","Compare data with text evidence.","Revise models using new evidence."],equity:["Provide graph-reading supports.","Use partner talk before whole-class data interpretation."],links:unitLinks},
+  {n:3,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition lesson 3",standards:["HS-LS2-1","HS-LS2-2"],question:"What drives animal movement or population changes?",phenomenon:"Field data can reveal relationships between resources, movement, and population patterns.",do:"Students organize and interpret field data to identify patterns and support claims about population or movement changes.",figure:["Data can show relationships between resources and organism behavior.","Patterns in data can support explanations.","Individual behavior can scale up to population-level patterns."],materials:["field data sets","data tables","graphing tools","science notebooks","CER organizer"],flow:["Organize raw observations into usable data.","Create or interpret data displays.","Compare evidence across sources.","Revise claims and models."],equity:["Use visual data displays and structured graph prompts.","Give students roles for data analysis."],links:unitLinks},
+  {n:4,set:"Lesson Set 1",days:2,type:"Investigation",pages:"Teacher Edition lesson 4",standards:["HS-LS2-1","HS-LS2-2"],question:"How do environmental factors influence ecosystem patterns?",phenomenon:"Environmental variables such as rainfall, resources, or temperature can affect organism behavior and population patterns.",do:"Students analyze datasets to connect environmental variables to patterns in organism behavior or population change.",figure:["Environmental factors can influence resource availability.","Changes in variables can lead to changes in system outcomes.","Multiple datasets can build stronger explanations."],materials:["environmental data sets","rainfall/resource data","graphing tools","science notebooks"],flow:["Identify variables in the system.","Analyze trends in data displays.","Connect datasets to build explanations.","Update models to include environmental variables."],equity:["Make variable language explicit.","Use sentence stems for describing trends and relationships."],links:unitLinks},
+  {n:5,set:"Lesson Set 2",days:2,type:"Putting Pieces Together",pages:"Teacher Edition lesson 5",standards:["HS-LS2-1","HS-LS2-2","HS-LS2-6"],question:"How can we put together what we have figured out about ecosystem changes?",phenomenon:"Evidence from multiple lessons can be synthesized into a more complete ecosystem model.",do:"Students revisit the DQB, synthesize evidence across lessons, revise models, and construct explanations of ecosystem change.",figure:["Multiple pieces of evidence can be combined into a coherent explanation.","Ecosystem models should include organisms, resources, environment, and interactions.","Population changes can be explained through cause-and-effect relationships."],materials:["evidence cards","Progress Tracker","DQB","model revision materials","science notebooks"],flow:["Review prior evidence.","Revisit DQB questions.","Revise models with accumulated evidence.","Write or discuss a synthesis explanation."],equity:["Use evidence cards to support synthesis.","Allow multiple ways to represent models."],links:unitLinks},
+  {n:6,set:"Lesson Set 2",days:1,type:"Transfer / Assessment",pages:"Teacher Edition lesson 6",standards:["HS-LS2-1","HS-LS2-2"],question:"Can we apply our ecosystem model to a new phenomenon?",phenomenon:"A new ecosystem context provides an opportunity to test and adapt the class model.",do:"Students apply their models and explanations from the Serengeti system to a new ecosystem phenomenon and determine what transfers and what needs revision.",figure:["Scientific models can be transferred to new contexts.","Some ideas are broadly applicable while others are context-specific.","Comparing systems helps refine explanations."],materials:["transfer task","comparison organizer","prior models","science notebooks"],flow:["Introduce new phenomenon.","Compare new system to the Serengeti system.","Apply the existing model.","Revise or qualify explanations."],equity:["Allow students to reference prior models and Progress Trackers.","Make comparison criteria explicit."],links:unitLinks},
+  {n:7,set:"Lesson Set 2",days:2,type:"Investigation",pages:"Teacher Edition lesson 7",standards:["HS-LS2-1","HS-LS2-2"],question:"What additional variables or interactions affect ecosystem outcomes?",phenomenon:"New evidence introduces additional variables that can change how the ecosystem behaves.",do:"Students incorporate new evidence into existing models and explanations to account for increased system complexity.",figure:["Ecosystems involve many interacting variables.","New evidence can extend models without replacing prior understanding.","Multiple causes can interact to produce system-level outcomes."],materials:["new data source","model extension materials","science notebooks","discussion prompts"],flow:["Introduce new variable or interaction.","Analyze new evidence.","Extend existing models.","Explain how the system understanding changed."],equity:["Use model layering to reduce cognitive load.","Encourage students to explain what changed and why."],links:unitLinks},
+  {n:8,set:"Lesson Set 2",days:2,type:"Investigation",pages:"Teacher Edition lesson 8",standards:["HS-LS2-1","HS-LS2-2"],question:"How can quantitative evidence help us explain ecosystem patterns?",phenomenon:"Quantitative data reveals trends, variability, and relationships in ecosystem systems.",do:"Students analyze graphs, tables, and numerical evidence to strengthen explanations about ecosystem patterns and population changes.",figure:["Quantitative evidence can strengthen explanations.","Patterns, variability, and relationships help evaluate claims.","Correlation and causation must be considered carefully."],materials:["quantitative data sets","graphing tools","data analysis organizer","science notebooks"],flow:["Analyze numerical data.","Interpret graphs and tables.","Compare datasets for consistency.","Use quantitative evidence in explanations."],equity:["Allow calculators or digital graphing tools when helpful.","Provide structured prompts for describing patterns."],links:unitLinks},
+  {n:9,set:"Lesson Set 3",days:2,type:"Investigation",pages:"Teacher Edition lesson 9",standards:["HS-LS2-7","HS-LS4-6"],question:"How can we evaluate possible solutions for protecting ecosystems?",phenomenon:"Conservation decisions require evaluating solutions and their effects on different parts of a system.",do:"Students evaluate possible solutions using criteria, constraints, evidence, and trade-offs.",figure:["Solutions can have benefits and drawbacks.","Criteria and constraints help evaluate conservation decisions.","Solutions can affect individuals, populations, and ecosystems differently."],materials:["solution case materials","criteria and constraints organizer","evidence sources","recommendation template"],flow:["Define the problem and possible solutions.","Analyze evidence for each solution.","Compare trade-offs.","Construct a recommendation."],equity:["Include multiple perspectives in conservation decisions.","Make trade-offs explicit and discuss who is affected."],links:unitLinks},
+  {n:10,set:"Lesson Set 3",days:3,type:"Putting Pieces Together",pages:"Teacher Edition lesson 10",standards:["HS-LS2-7","HS-LS4-6"],question:"How can we design or choose solutions that support stable and resilient ecosystems?",phenomenon:"Real-world ecosystem decisions involve ecological, social, and economic trade-offs.",do:"Students synthesize unit evidence to evaluate complex solutions and justify decisions using criteria and constraints.",figure:["Ecosystem solutions can support stability and resilience.","Decision-making requires balancing competing priorities.","Evidence-based recommendations should consider intended and unintended outcomes."],materials:["design solution materials","criteria/constraints chart","unit evidence","presentation or writing organizer"],flow:["Review unit evidence.","Evaluate complex solutions.","Analyze trade-offs and consequences.","Present or write a justified recommendation."],equity:["Center community and ecological impacts.","Support students in explaining uncertainty and trade-offs."],links:unitLinks},
+  {n:11,set:"Lesson Set 3",days:1,type:"Transfer / Assessment",pages:"Teacher Edition lesson 11",standards:["HS-LS2-1","HS-LS2-2","HS-LS2-7"],question:"Can we use everything we have figured out to explain a new ecosystem phenomenon?",phenomenon:"A new phenomenon provides a final opportunity to transfer ecosystem reasoning.",do:"Students apply models, explanations, and evidence from the unit to a new ecosystem context and communicate a complete explanation.",figure:["Scientific ideas can transfer across ecosystem contexts.","Models may need adjustment when applied to new systems.","Strong explanations use evidence, reasoning, and appropriate scale."],materials:["final transfer task","Progress Tracker","models","science notebooks"],flow:["Introduce new phenomenon.","Apply unit models and evidence.","Construct a full explanation.","Reflect on which ideas transfer and which are context-specific."],equity:["Allow students to use prior models and trackers.","Offer multiple formats for final explanation when possible."],links:unitLinks}
+];
 
-    function updateDisplay() {
-      const display = document.getElementById('timerDisplay');
-      if (!display) return;
-      const min = String(Math.floor(secondsLeft / 60)).padStart(2, '0');
-      const sec = String(secondsLeft % 60).padStart(2, '0');
-      display.textContent = `${min}:${sec}`;
-    }
+const expandedLiteracy = {
+  1: [
+    "<b>Reading:</b> Evaluate conservation profiles to identify criteria and evidence.",
+    "<b>Writing:</b> Generate initial models and questions on the DQB.",
+    "<b>Speaking:</b> Structured brainstorming and consensus building.",
+    "<b>Data/Media:</b> Interpret maps/images of protected lands.",
+    "<b>Scientific Questioning (DQB):</b> Generate, categorize, and refine questions about ecosystem interactions using the Driving Question Board.",
+    "<b>Data Integration:</b> Compare and connect patterns across maps, images, and initial population observations.",
+    "<b>Model Revision:</b> Revise initial ecosystem models as new observations and questions emerge.",
+    "<b>Argumentation:</b> Propose initial explanations and justify them using observable evidence from the phenomenon.",
+    "<b>Systems Literacy:</b> Identify components of the ecosystem (organisms, resources, environment) and describe how they interact.",
+    "<b>Causal Reasoning:</b> Begin explaining cause-and-effect relationships in population changes using evidence.",
+    "<b>Scale Literacy:</b> Distinguish between individual organisms and population-level patterns when interpreting observations."
+  ],
+  2: [
+    "<b>Reading:</b> Close read on Serengeti history (cause/effect, perspectives).",
+    "<b>Writing:</b> Summarize reasons for park creation with evidence.",
+    "<b>Speaking:</b> Synthesize multiple sources into a class model.",
+    "<b>Source Eval:</b> Compare viewpoints/interest holders.",
+    "<b>Scientific Questioning (DQB):</b> Refine and prioritize questions about factors influencing ecosystem changes based on new evidence.",
+    "<b>Data Integration:</b> Compare observational data with textual evidence to identify consistent patterns.",
+    "<b>Model Revision:</b> Update ecosystem models based on new evidence about resource availability and population changes.",
+    "<b>Argumentation:</b> Evaluate and revise explanations using new evidence gathered from readings and data.",
+    "<b>Systems Literacy:</b> Explain how changes in one part of the ecosystem influence other components.",
+    "<b>Causal Reasoning:</b> Use evidence to explain cause-and-effect relationships between environmental changes and population outcomes.",
+    "<b>Scale Literacy:</b> Connect individual organism behavior to population-level trends and ecosystem patterns."
+  ],
+  3: [
+    "<b>Data Literacy:</b> Organize field data to identify patterns.",
+    "<b>Writing (CER):</b> Claim about migration drivers with evidence.",
+    "<b>Speaking:</b> Justify interpretations of data displays.",
+    "<b>Scientific Questioning (DQB):</b> Use emerging data patterns to refine questions about what drives movement or population changes.",
+    "<b>Graph/Table Interpretation:</b> Translate raw observations into usable data displays and explain what the patterns show.",
+    "<b>Data Integration:</b> Compare multiple data sources to determine which evidence best supports an explanation.",
+    "<b>Model Revision:</b> Revise models using evidence from data patterns rather than initial assumptions.",
+    "<b>Argumentation:</b> Support claims about migration or population patterns using specific data as evidence.",
+    "<b>Causal Reasoning:</b> Explain how environmental or resource-related factors may cause changes in organism behavior or population location.",
+    "<b>Scale Literacy:</b> Connect individual animal movement or behavior to larger population-level patterns."
+  ],
+  4: [
+    "<b>Data Literacy:</b> Analyze rainfall datasets; link variables.",
+    "<b>Writing (CER):</b> Explain how rain (food proxy) influences location.",
+    "<b>Math Language:</b> Use trends/relationships precisely.",
+    "<b>Scientific Questioning (DQB):</b> Refine questions about how environmental factors influence ecosystem patterns.",
+    "<b>Graph/Table Interpretation:</b> Interpret trends and patterns in data displays to support explanations.",
+    "<b>Data Integration:</b> Connect multiple datasets to build a more complete explanation of system behavior.",
+    "<b>Model Revision:</b> Update models to reflect relationships between environmental variables and organism responses.",
+    "<b>Argumentation:</b> Use evidence from data to support claims about how environmental changes affect ecosystems.",
+    "<b>Causal Reasoning:</b> Explain how changes in one variable (e.g., temperature, rainfall) lead to changes in system outcomes.",
+    "<b>Quantitative Reasoning:</b> Use precise language to describe trends, relationships, and rates of change in data.",
+    "<b>Scale Literacy:</b> Connect short-term observations to longer-term ecosystem patterns and changes."
+  ],
+  5: [
+    "<b>Modeling:</b> Translate kinesthetic model to graphs/algorithms.",
+    "<b>Math/Data:</b> Interpret population graphs and rates of change.",
+    "<b>Writing (CER):</b> Explain carrying capacity and limiting factors.",
+    "<b>Scientific Questioning (DQB):</b> Revisit, refine, and answer Driving Question Board questions using accumulated evidence.",
+    "<b>Synthesis Writing:</b> Combine evidence from multiple lessons to construct a coherent explanation of ecosystem changes.",
+    "<b>Evidence Integration:</b> Use data, models, and prior investigations together to support claims.",
+    "<b>Model Revision:</b> Revise and finalize models to reflect a complete understanding of system interactions.",
+    "<b>Argumentation:</b> Justify explanations using multiple sources of evidence and defend reasoning.",
+    "<b>Systems Literacy:</b> Explain how interactions among organisms, resources, and environmental factors produce system-level outcomes.",
+    "<b>Causal Reasoning:</b> Construct a full cause-and-effect explanation of population changes over time.",
+    "<b>Scale Literacy:</b> Connect individual, population, and ecosystem-level processes in a single explanation.",
+    "<b>Scientific Communication:</b> Clearly communicate explanations using appropriate scientific language and evidence."
+  ],
+  6: [
+    "<b>Transfer Writing:</b> Apply concepts to a new scenario.",
+    "<b>Evidence Use:</b> Select relevant data to justify decisions.",
+    "<b>Scientific Questioning (DQB):</b> Apply existing questions and generate new ones when encountering a new phenomenon.",
+    "<b>Transfer Literacy:</b> Apply models and explanations from the original system to a new context.",
+    "<b>Comparative Reasoning:</b> Compare similarities and differences between the original and new systems.",
+    "<b>Model Adaptation:</b> Modify existing models to fit a new phenomenon while maintaining core scientific principles.",
+    "<b>Evidence Integration:</b> Use prior evidence to support explanations in a new context.",
+    "<b>Argumentation:</b> Justify whether existing explanations apply or need revision when used in a different system.",
+    "<b>Causal Reasoning:</b> Evaluate whether the same cause-and-effect relationships hold in a new context.",
+    "<b>Scale Literacy:</b> Apply ideas across systems while recognizing differences in scale and context.",
+    "<b>Scientific Generalization:</b> Identify which ideas are broadly applicable across ecosystems and which are context-specific."
+  ],
+  7: [
+    "<b>Algorithmic Thinking:</b> Convert behaviors into rules.",
+    "<b>Speaking:</b> Argue how behavior affects survival.",
+    "<b>Model Critique:</b> Identify limits of simulations.",
+    "<b>Scientific Questioning (DQB):</b> Extend questions to account for new variables or factors introduced in the system.",
+    "<b>Data Literacy:</b> Interpret new forms of data to identify additional patterns or relationships.",
+    "<b>Model Extension:</b> Expand existing models to include new components or interactions.",
+    "<b>Evidence Integration:</b> Incorporate new evidence into existing explanations without discarding prior understanding.",
+    "<b>Argumentation:</b> Revise claims based on new evidence and explain how understanding has changed.",
+    "<b>Systems Literacy:</b> Explain how adding new variables changes system behavior and outcomes.",
+    "<b>Causal Reasoning:</b> Analyze how multiple interacting causes influence system changes.",
+    "<b>Scale Literacy:</b> Consider how newly introduced factors affect patterns at different system levels.",
+    "<b>Scientific Communication:</b> Clearly explain how and why models have been expanded or revised."
+  ],
+  8: [
+    "<b>Reading:</b> Jigsaw component articles.",
+    "<b>Modeling:</b> Build/interpret computational models.",
+    "<b>Writing:</b> Predict outcomes and explain resilience.",
+    "<b>Scientific Questioning (DQB):</b> Refine questions to focus on measurable variables and quantitative relationships.",
+    "<b>Data Literacy:</b> Analyze datasets to identify trends, variability, and relationships between variables.",
+    "<b>Graph/Table Interpretation:</b> Interpret graphical representations to explain patterns and support claims.",
+    "<b>Quantitative Reasoning:</b> Use numerical evidence, proportions, and trends to strengthen explanations.",
+    "<b>Data Integration:</b> Compare multiple datasets to evaluate consistency and reliability of evidence.",
+    "<b>Model Revision:</b> Update models to reflect quantitative relationships and patterns in the data.",
+    "<b>Argumentation:</b> Use quantitative evidence to justify claims and evaluate competing explanations.",
+    "<b>Causal Reasoning:</b> Distinguish between correlation and causation when interpreting data patterns.",
+    "<b>Scale Literacy:</b> Interpret how quantitative changes at one scale influence patterns at larger system levels.",
+    "<b>Scientific Communication:</b> Clearly describe data trends and explain their significance using precise scientific language."
+  ],
+  9: [
+    "<b>Argumentation:</b> Evaluate claims about conservation proposals.",
+    "<b>Speaking:</b> Debate using evidence and stakeholder perspectives.",
+    "<b>Writing (CER):</b> Recommendation with trade-offs.",
+    "<b>Scientific Questioning (DQB):</b> Refine questions to focus on possible solutions and their impacts on the system.",
+    "<b>Decision Literacy:</b> Evaluate solutions using criteria, constraints, and available evidence.",
+    "<b>Evidence Integration:</b> Use multiple sources of evidence to compare potential solutions.",
+    "<b>Argumentation:</b> Construct and defend a recommendation using evidence, reasoning, and trade-offs.",
+    "<b>Trade-Off Analysis:</b> Explain benefits and drawbacks of different solutions and justify prioritization.",
+    "<b>Systems Literacy:</b> Predict how proposed solutions will impact different parts of the system.",
+    "<b>Causal Reasoning:</b> Explain how implementing a solution may lead to intended and unintended outcomes.",
+    "<b>Scale Literacy:</b> Evaluate how solutions affect individuals, populations, and ecosystems differently.",
+    "<b>Scientific Communication:</b> Clearly communicate and justify a final recommendation using evidence and reasoning."
+  ],
+  10: [
+    "<b>Reading:</b> Analyze conservation plans.",
+    "<b>Writing:</b> Evaluate effectiveness using criteria.",
+    "<b>Speaking:</b> Present and defend evaluations.",
+    "<b>Scientific Questioning (DQB):</b> Revisit remaining questions to determine which can be answered through evaluation of solutions.",
+    "<b>Decision Literacy:</b> Evaluate complex solutions using multiple criteria and constraints.",
+    "<b>Evidence Integration:</b> Synthesize evidence from across the unit to support decision-making.",
+    "<b>Argumentation:</b> Construct and defend claims about which solutions are most effective using evidence and reasoning.",
+    "<b>Trade-Off Analysis:</b> Analyze competing priorities (ecological, social, economic) when evaluating solutions.",
+    "<b>Systems Literacy:</b> Predict how different design solutions will affect system stability and resilience.",
+    "<b>Causal Reasoning:</b> Explain both intended and unintended consequences of proposed solutions.",
+    "<b>Scale Literacy:</b> Evaluate impacts of solutions across local, regional, and global scales.",
+    "<b>Scientific Communication:</b> Present and justify conclusions clearly using evidence-based reasoning and appropriate scientific language."
+  ],
+  11: [
+    "<b>Synthesis Writing:</b> Transfer task integrating unit ideas.",
+    "<b>Evidence Integration:</b> Combine models, data, and reasoning.",
+    "<b>Reflection:</b> Articulate how understanding informs conservation.",
+    "<b>Scientific Questioning (DQB):</b> Apply prior questions to a new phenomenon and generate new questions for independent investigation.",
+    "<b>Transfer Literacy:</b> Apply models, explanations, and reasoning from the unit to a completely new context.",
+    "<b>Evidence Integration:</b> Synthesize evidence from across the entire unit to explain a new phenomenon.",
+    "<b>Model Application:</b> Use established models to explain unfamiliar systems and identify where adjustments are needed.",
+    "<b>Argumentation:</b> Construct a complete, evidence-based explanation independently and defend reasoning.",
+    "<b>Causal Reasoning:</b> Explain cause-and-effect relationships in a new system using prior knowledge.",
+    "<b>Scale Literacy:</b> Apply understanding across multiple levels (individual, population, ecosystem) in a new context.",
+    "<b>Scientific Generalization:</b> Identify which scientific ideas apply broadly across systems and which are context-specific.",
+    "<b>Scientific Communication:</b> Clearly communicate a full explanation using evidence, reasoning, and appropriate scientific language."
+  ]
+};
 
-    function startClassTimer(seconds) {
-      clearInterval(timerId);
-      secondsLeft = seconds;
-      updateDisplay();
-      timerId = setInterval(function () {
-        secondsLeft -= 1;
-        if (secondsLeft <= 0) {
-          secondsLeft = 0;
-          clearInterval(timerId);
-          timerId = null;
-        }
-        updateDisplay();
-      }, 1000);
-    }
-
-    function stopClassTimer() {
-      clearInterval(timerId);
-      timerId = null;
-    }
-
-    function resetClassTimer() {
-      clearInterval(timerId);
-      timerId = null;
-      secondsLeft = 0;
-      updateDisplay();
-    }
-
-    function showTalkMove() {
-      const box = document.getElementById('talkMove');
-      if (!box) return;
-      const current = box.textContent;
-      let next = current;
-      while (next === current && talkMoves.length > 1) {
-        next = talkMoves[Math.floor(Math.random() * talkMoves.length)];
-      }
-      box.textContent = next;
-    }
-
-    document.addEventListener('click', function (event) {
-      const timerButton = event.target.closest('[data-timer]');
-      if (timerButton) {
-        event.preventDefault();
-        startClassTimer(Number(timerButton.getAttribute('data-timer')));
-        return;
-      }
-
-      const actionButton = event.target.closest('[data-timer-action]');
-      if (actionButton) {
-        event.preventDefault();
-        const action = actionButton.getAttribute('data-timer-action');
-        if (action === 'stop') stopClassTimer();
-        if (action === 'reset') resetClassTimer();
-        return;
-      }
-
-      const talkButton = event.target.closest('[data-talk-move]');
-      if (talkButton) {
-        event.preventDefault();
-        showTalkMove();
-        return;
-      }
-
-          });
-
-    window.addEventListener('load', function () {
-      updateDisplay();
-    });
-  })();
+let selected = lessons[0].n;
+function matches(l) {
+  const q = document.getElementById("search").value.toLowerCase().trim();
+  const set = document.getElementById("setFilter").value;
+  const type = document.getElementById("typeFilter").value;
+  const standard = document.getElementById("standardFilter").value;
+  const text = JSON.stringify(l).toLowerCase();
+  return (!q || text.includes(q)) && (set === "all" || l.set === set) && (type === "all" || l.type === type) && (standard === "all" || l.standards.includes(standard));
+}
+function renderLessons() {
+  const list = document.getElementById("lessonList");
+  const filtered = lessons.filter(matches);
+  if (!filtered.some(l => l.n === selected) && filtered.length) selected = filtered[0].n;
+  list.innerHTML = filtered.map(l => `
+    <button class="card ${l.n === selected ? "active" : ""}" onclick="selectLesson(${l.n})" aria-label="Open Lesson ${l.n}">
+      <div class="lesson-num">Lesson ${l.n} • ${l.days} day${l.days > 1 ? "s" : ""}</div>
+      <h3>${l.question}</h3>
+      <div>${l.phenomenon}</div>
+      <div class="meta"><span class="pill">${l.set}</span><span class="pill green">${l.type}</span><span class="pill orange">${l.pages}</span></div>
+    </button>
+  `).join("") || "<div class=\"notice\">No lessons match your filters.</div>";
+  renderDetail();
+}
+function selectLesson(n) { selected = n; renderLessons(); }
+function listItems(arr) { return "<ul>" + arr.map(x => `<li>${x}</li>`).join("") + "</ul>"; }
+function linkItems(arr) { return "<div class=\"links\">" + arr.map(([label,url]) => `<a href="${url}" target="_blank" rel="noopener">${label}</a>`).join("") + "</div>"; }
+function flowItems(arr) { return "<div class=\"timeline\">" + arr.map((x,i) => `<div class="step"><b>${i+1}.</b> ${x}</div>`).join("") + "</div>"; }
+function prepChecklist(l) { return `<div class="checklist">
+  <label><input type="checkbox"> Open official OpenSciEd B.1 lesson materials</label>
+  <label><input type="checkbox"> Review teacher guide: ${l.pages}</label>
+  <label><input type="checkbox"> Preview slides</label>
+  <label><input type="checkbox"> Print/share student handouts</label>
+  <label><input type="checkbox"> Prepare materials: ${l.materials.slice(0,4).join(", ")}</label>
+  <label><input type="checkbox"> Review equity, accessibility, and discussion supports</label>
+  <label><input type="checkbox"> Prepare exit ticket, assessment, or Progress Tracker update</label>
+</div>`; }
+function literacyItems(l) { return listItems(expandedLiteracy[l.n] || []); }
+function sentenceStems(l) {
+  const stems = {
+    default:["My claim is that ___ because ___.","The evidence I used was ___.","This shows that ___.","I agree/disagree with ___ because ___."],
+    data:["I notice a pattern where ___.","The data show ___, which suggests ___.","When ___ changes, ___ also ___.","This trend might be explained by ___."],
+    modeling:["In my model, ___ represents ___.","If ___ changes, then ___ will ___.","This interaction shows ___.","One part I revised was ___ because ___."],
+    argument:["One possible solution is ___ because ___.","A trade-off to consider is ___.","From the perspective of ___, this matters because ___.","Based on the evidence, I recommend ___."]
+  };
+  let use = stems.default;
+  if ([3,4,8].includes(l.n)) use = stems.data;
+  if ([1,5,6,7,11].includes(l.n)) use = stems.modeling;
+  if ([9,10].includes(l.n)) use = stems.argument;
+  return listItems(use);
+}
+function renderDetail() {
+  const l = lessons.find(x => x.n === selected) || lessons[0];
+  document.getElementById("detail").innerHTML = `
+    <div class="detail-head">
+      <div class="lesson-num">Lesson ${l.n} • ${l.set} • ${l.type}</div>
+      <h2>${l.question}</h2>
+      <div class="meta"><span class="pill">${l.days} class day${l.days > 1 ? "s" : ""}</span><span class="pill orange">${l.pages}</span>${l.standards.map(s => `<span class="pill green">${s}</span>`).join("")}</div>
+    </div>
+    <div class="detail-body">
+      <div class="section sticky-resource"><h4>Official OpenSciEd Unit Resources</h4><div class="resource-buttons"><a class="resource-btn" href="${DRIVE_FOLDER}" target="_blank">Open Unit Google Drive</a></div><p style="margin:8px 0 0; font-size:13px; color:var(--muted);">Official folder for Unit B.1 slides, handouts, and teacher materials.</p></div>
+      <div class="section"><h4>Today at a Glance</h4><div class="timeline"><div class="step"><b>Objective:</b> ${l.question}</div><div class="step"><b>Focus Activity:</b> ${l.do.split(".")[0]}.</div><div class="step"><b>Success Criteria:</b> Students can explain: ${l.figure[0]}</div><div class="step"><b>Time:</b> ${l.days} class day${l.days>1?"s":""}</div></div></div>
+      <div class="section"><h4>Teacher Moves</h4><ul><li>Ask: “What evidence supports your claim?”</li><li>Press: “What happens if one part of the ecosystem changes?”</li><li>Connect: “How does this relate to our model?”</li><li>Clarify: “Are we talking about an individual, population, or ecosystem?”</li></ul></div>
+      <div class="section"><h4>Bell Ringer</h4><p><b>Prompt:</b> Before we begin, write one prediction or question connected to today’s lesson question:</p><div class="step">${l.question}</div><p style="margin-bottom:0;"><b>Share-out:</b> Compare with a partner and identify one piece of evidence that would help answer the question.</p></div>
+      <div class="section"><h4>Class Timer</h4><div class="timer-row"><div id="timerDisplay" class="timer-display">00:00</div><button class="timer-btn" data-timer="300">5 min</button><button class="timer-btn" data-timer="600">10 min</button><button class="timer-btn" data-timer="900">15 min</button><button class="timer-btn" data-timer="1200">20 min</button><button class="timer-btn secondary" data-timer-action="stop">Stop</button><button class="timer-btn secondary" data-timer-action="reset">Reset</button></div></div>
+      <div class="section"><h4>Random Talk Move</h4><div id="talkMove" class="talk-move">Click the button for a discussion prompt.</div><div style="margin-top:10px;"><button class="timer-btn" data-talk-move="new">New Talk Move</button></div></div>
+      <div class="notice"><b>Quick planning cue:</b> Download/verify the official teacher guide, slides, student handouts, references, and keys for this lesson through OpenSciEd before teaching.</div>
+      <div class="section"><h4>Phenomenon / Design Problem</h4><p>${l.phenomenon}</p></div>
+      <details class="section" open><summary><h4>What students do</h4></summary><p>${l.do}</p></details>
+      <div class="twocol"><details class="section"><summary><h4>What students figure out</h4></summary>${listItems(l.figure)}</details><details class="section"><summary><h4>Materials & prep lookup</h4></summary>${listItems(l.materials)}</details></div>
+      <details class="section"><summary><h4>Lesson flow snapshot</h4></summary>${flowItems(l.flow)}</details>
+      <div class="twocol"><details class="section"><summary><h4>Equity / accessibility reminders</h4></summary>${listItems(l.equity)}</details><details class="section"><summary><h4>Disciplinary Literacy Strategies</h4></summary>${literacyItems(l)}<div style="margin-top:12px;"><h5 style="margin:0 0 6px; color:var(--teal-dark);">Student Sentence Stems</h5>${sentenceStems(l)}</div></details></div>
+      <div class="twocol"><div class="section"><h4>Daily Prep Checklist</h4>${prepChecklist(l)}</div><div class="section"><h4>OpenSciEd / External Links</h4>${linkItems(l.links)}</div></div>
+    </div>`;
+}
+function resetFilters(){ document.getElementById("search").value=""; document.getElementById("setFilter").value="all"; document.getElementById("typeFilter").value="all"; document.getElementById("standardFilter").value="all"; selected=1; renderLessons(); }
+renderLessons();
+let timerId=null, secondsLeft=0;
+function updateDisplay(){ const d=document.getElementById("timerDisplay"); if(!d) return; d.textContent=String(Math.floor(secondsLeft/60)).padStart(2,"0")+":"+String(secondsLeft%60).padStart(2,"0"); }
+function startClassTimer(seconds){ clearInterval(timerId); secondsLeft=seconds; updateDisplay(); timerId=setInterval(()=>{ secondsLeft=Math.max(0,secondsLeft-1); updateDisplay(); if(secondsLeft===0){ clearInterval(timerId); timerId=null;} },1000); }
+function stopClassTimer(){ clearInterval(timerId); timerId=null; }
+function resetClassTimer(){ clearInterval(timerId); timerId=null; secondsLeft=0; updateDisplay(); }
+const talkMoves=["Can you say more about that?","What evidence supports your idea?","Who can add on to that thinking?","Do you agree or disagree? What is your evidence?","How does this connect to our model?","What part of the system is changing?","Are we talking about an individual, population, or ecosystem?","What pattern do you notice?","What might be another explanation?","What data would help us decide?"];
+function showTalkMove(){ const box=document.getElementById("talkMove"); if(!box) return; box.textContent=talkMoves[Math.floor(Math.random()*talkMoves.length)]; }
+document.addEventListener("click", function(event){ const timerButton=event.target.closest("[data-timer]"); if(timerButton){ event.preventDefault(); startClassTimer(Number(timerButton.getAttribute("data-timer"))); return;} const actionButton=event.target.closest("[data-timer-action]"); if(actionButton){ event.preventDefault(); const a=actionButton.getAttribute("data-timer-action"); if(a==="stop") stopClassTimer(); if(a==="reset") resetClassTimer(); return;} const talkButton=event.target.closest("[data-talk-move]"); if(talkButton){ event.preventDefault(); showTalkMove(); }});
 </script>
 </body>
 </html>
